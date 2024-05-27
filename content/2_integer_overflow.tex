@@ -22,7 +22,6 @@ pub fn overflow_how_not(){
 
     println!("{}", b);
 }
-
 pub fn overflow(){
     let a: i32 = i32::MAX;
 
@@ -40,7 +39,8 @@ pub fn overflow(){
 
     // overflowing addition 
     let (overflowing_sum, overflowed) = a.overflowing_add(1);
-    println!("Overflowing sum: {}, overflowed: {}", overflowing_sum, overflowed);  
+    println!("Overflowing sum: {}, overflowed: {}",
+        overflowing_sum, overflowed);  
 }
 \end{lstlisting}
 
