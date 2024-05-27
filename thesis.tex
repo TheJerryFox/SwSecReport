@@ -1,0 +1,231 @@
+
+\documentclass[
+    oneside,
+    report,
+    12pt,
+    a4paper,
+    sfdefaults=false,
+    toc=chapterentrywithdots,
+    titlepage,
+    parskip=never,
+    headings=normal,  % reduces heading size
+    listof=totoc,
+    bibliography=totoc,
+    index=totoc,
+    captions=tableheading,  % caption below table
+    chapterprefix,
+    listof=flat,
+    final
+]{scrbook}
+
+
+% details about your thesis
+\newcommand{\titel}{My very fancy thesis title.}
+\newcommand{\artderarbeit}{Bachelorarbeit}  % {Bachelorarbeit,Masterarbeit}
+\newcommand{\autor}{Georg Simon Ohm}
+\newcommand{\studiengang}{Informatik}  % {Informatik,Wirtschaftsinformatik,Medieninformatik}
+\newcommand{\matrikelnr}{123\,4567}
+\newcommand{\erstgutachter}{Prof.\,Dr.~Korbinian Riedhammer}
+\newcommand{\zweitgutachter}{Prof.\,Dr.~Bartosz von\,Rymon}
+\newcommand{\betreuer}{M.Sc.\,~Martina Schmidt}
+\newcommand{\unternehmen}{Musterfirma GmbH}
+\newcommand{\logo}{figures/TH-Nuernberg-RGB.png}
+\newcommand{\keywords}{hot, fuzz}
+ 
+
+% custom head and foot
+\usepackage[automark]{scrlayer-scrpage}
+\clearpairofpagestyles % Clear default settings
+\ihead{\headmark} % Inner head
+\ohead{\pagemark} % Outer head (page number)
+\cfoot{} % Center foot - empty in this setup
+% If you want a line below the header or above the footer, you can configure
+% \KOMAoptions or \setkomafont here
+
+\renewcommand*\chaptermarkformat{\chapappifchapterprefix{\ }% 
+  \thechapter.\enskip}
+\pagestyle{scrheadings}
+\ihead{\headmark}
+\chead{}
+\ohead{\pagemark}
+\renewcommand*\chaptermarkformat{\chapappifchapterprefix{\ }% 
+  \thechapter.\enskip}
+
+\RedeclareSectionCommand[tocindent=0pt]{section}
+\RedeclareSectionCommand[tocindent=0pt]{subsection}
+%\RedeclareSectionCommand[tocnumwidth=70pt]{chapter}
+
+\usepackage{scrhack}
+
+% other packages
+\usepackage{wrapfig}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,relsize,textcomp,csquotes}
+\usepackage{amsmath,amsfonts}
+\usepackage[ngerman]{babel}  % flip for German thesis
+\usepackage[final]{graphicx}
+\usepackage{setspace,xcolor}
+\usepackage{makeidx}
+\usepackage{paralist,ifthen,todonotes}
+\usepackage{url}
+\usepackage{pdfpages}
+%Format of headings
+\usepackage{titlesec}
+% Define chapter title style
+\titleformat{\chapter}[hang]
+  {\normalfont\Huge\bfseries} % format
+  {\thechapter\ } % label
+  {0pt} % sep (space between label and title)
+  {} % before-code
+  [] % after-code
+% Section title formatting
+\titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{}
+% Subsection title formatting
+\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{1em}{}
+% Subsubsection title formatting
+\titleformat{\subsubsection}{\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
+% Paragraph title formatting
+\titleformat{\paragraph}[runin]{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+% Subparagraph title formatting
+\titleformat{\subparagraph}[runin]{\normalfont\normalsize\bfseries}{\thesubparagraph}{1em}{}
+% Adjust spacing
+\titlespacing*{\chapter}{0pt}{5pt}{5pt}
+\titlespacing*{\section}{0pt}{10pt}{5pt}
+\titlespacing*{\subsection}{0pt}{10pt}{5pt}
+\titlespacing*{\subsubsection}{0pt}{10pt}{5pt}
+\titlespacing*{\paragraph}{0pt}{10pt}{5pt}
+\titlespacing*{\subparagraph}{0pt}{10pt}{5pt}
+% Redefine the chapter command to not start on a new page
+
+
+%\titleformat{\chapter}{\normalfont\bfseries}{\thechapter}{1pt}{\LARGE}
+%\titleformat{\section}{\normalfont\bfseries}{\thesection}{5pt}{}
+%\titlespacing*{\chapter}{0pt}{-10pt}{5pt}
+% table setup
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{ragged2e}
+\usepackage{lscape}
+\usepackage{setspace}
+%\usepackage{fancyhdr}
+%\usepackage[hidelinks]{hyperreff}
+%\fancypagestyle{mystyle}{%
+%  \fancyhf{} % Clear all header and footer fields
+%  \renewcommand{\headrulewidth}{0pt} % Remove the header rule
+%  \fancyfoot[C]{\thepage} % Center the page number in the footer
+%}
+%\fancyfootoffset{0pt}
+%\pagestyle{mystyle}
+
+
+% pdf hyperref
+\usepackage[
+    bookmarks=true,
+    bookmarksopen=true,
+    bookmarksnumbered=true,
+    bookmarksopenlevel=1,
+    pdftitle={\titel},
+    pdfauthor={\autor},
+    pdfcreator={\autor},
+    pdfsubject={\titel},
+    pdfkeywords={\keywords},
+    pdfpagelabels=true,
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=magenta,
+    anchorcolor=black,
+    citecolor=cyan,
+    filecolor=magenta,
+    menucolor=black,
+    plainpages=false,
+    hypertexnames=true,
+    linktocpage=true,
+]{hyperref}
+
+\usepackage[toc, acronym]{glossaries}
+
+% configure your listings style
+\usepackage{listings}
+\lstset{
+	tabsize=3,
+	extendedchars=true,
+	frame=single,
+	showstringspaces=true,
+	numbers=left,
+	numberstyle=\small,
+	breakautoindent=true
+}
+
+% page setup
+% \setlength{\topskip}{\ht\strutbox}
+
+\usepackage[paper=a4paper,left=2.5cm,right=2.0cm,top=2.0cm,bottom=2.0cm,bindingoffset=0.0cm]{geometry}
+\singlespacing
+\frenchspacing
+\clubpenalty = 10000
+\widowpenalty = 10000 
+\displaywidowpenalty = 10000
+
+% some commands
+\newcommand{\ua}{\mbox{u.\,a.\ }}
+\newcommand{\zB}{\mbox{z.\,B.\ }}
+\newcommand{\dahe}{\mbox{d.\,h.,\ }}
+\newcommand{\bzw}{\mbox{bzw.\ }}
+\newcommand{\bzgl}{\mbox{bzgl.\ }}
+\newcommand{\eg}{\mbox{e.\,g.\ }}
+\newcommand{\ie}{\mbox{i.\,e.\ }}
+\newcommand{\wrt}{\mbox{w.\,r.\,t.\ }}
+\newcommand{\etal}{\mbox{\emph{et.\,al.\ }}}
+
+
+% TODO remove if not needed...
+\usepackage{blindtext}
+
+% load glossary entries
+\makenoidxglossaries
+\loadglsentries{glossary}
+
+\begin{document}
+\setcounter{secnumdepth}{3}  % numerate subsections
+\setcounter{tocdepth}{2}  % ...but don't include them in toc
+\frontmatter
+\include{cover}\cleardoublepage
+
+% download the following form and complete it (hit save in your editor)
+% https://intern.ohmportal.de/fileadmin/Gelenkte_Doks/Abt/SZS/SB/SB_0050_FO_Pruefungsrechtliche_Erklaerung_und_Erklaerung_zur_Veroeffentlichung_der_Abschlussarbeit_public.pdf
+%\includepdf{SB_0050_FO_Pruefungsrechtliche_Erklaerung_und_Erklaerung_zur_Veroeffentlichung_der_Abschlussarbeit_public.pdf}\cleardoublepage
+
+\include{content/0_abstract}\cleardoublepage
+
+\tableofcontents
+
+\mainmatter
+\include{content/1_intro}
+\include{content/2_data}
+\include{content/3_method}
+\include{content/4_experiments}
+\include{content/5_outlook}
+\include{content/6_summary}
+
+% remove if not needed
+\appendix
+\include{content/a1_supplemental}
+
+\backmatter
+\listoffigures
+\cleardoublepage
+
+\listoftables
+\cleardoublepage
+
+\renewcommand{\lstlistlistingname}{List of Listings}  % change for German thesis
+\lstlistoflistings
+\cleardoublepage
+
+\bibliographystyle{wmaainf}
+\bibliography{refs}
+
+\printnoidxglossaries
+
+\end{document}
