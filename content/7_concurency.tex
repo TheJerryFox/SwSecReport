@@ -1,0 +1,114 @@
+\chapter{Sichere Nebenläufigkeit}
+
+\section{Theoretische Grundlagen}
+
+Nebenläufigkeit ist ein wesentlicher Aspekt moderner Softwareentwicklung, insbesondere bei der Entwicklung von Systemen, die eine hohe Leistung und Reaktionsfähigkeit erfordern. 
+Jedoch birgt die Nebenläufigkeit zahlreiche Herausforderungen, insbesondere im Hinblick auf die Sicherheit und Korrektheit des Codes.
+Datenrennen sind ein häufiges Problem, das auftritt, wenn mehrere Threads gleichzeitig auf dieselben Daten zugreifen und diese ändern, ohne dass die Zugriffe korrekt synchronisiert sind.\\ 
+\\
+Rust bietet einen innovativen Ansatz zur sicheren Nebenläufigkeit, indem es die Konzepte der Besitzrechte (Ownership) und des Ausleihens (Borrowing) auf Threads anwendet. 
+Dies wird durch die Einbindung von Mechanismen wie \texttt{Arc} (Atomic Reference Counting) und \texttt{Mutex} (Mutual Exclusion) erreicht, die sicherstellen, dass Datenrassen verhindert werden, während gleichzeitig eine hohe Leistung erzielt wird.
+
+\section{Praktische Beispiele}
+
+Hier ist ein Beispiel, das zeigt, wie man in Rust sicher Threads erstellt, die gemeinsam einen Zähler erhöhen:
+
+\begin{lstlisting}[language=Rust, caption=Sicheres Erstellen von Threads mit Rust]
+use std::sync::{Arc, Mutex};
+use std::thread;
+use std::time::Duration;
+use rand::{thread_rng, Rng}; 
+
+pub fn create_increment_threads(){
+    let counter = Arc::new(Mutex::new(0));
+    let mut children = vec![];
+
+    for _ in 0..5 {
+        let counter_clone = Arc::clone(&counter);
+        let child = thread::spawn(move || {
+            let mut rng = thread_rng(); 
+            // Loop to add to the counter 10 times
+            for _ in 0..10 { 
+                {
+                    let mut num = match counter_clone.lock() {
+                        Ok(x) => x,
+                        Err(_) => todo!(),
+                    };
+                    *num += 1;
+                } // MutexGuard goes out of scope here, 
+                  //releasing the lock
+
+                let sleep_time = rng.gen_range(1..=3); 
+                // Sleep for random duration
+                thread::sleep(Duration::from_millis(sleep_time)); 
+            }
+        });
+        children.push(child);
+    }
+
+    // Wait for all threads to complete
+    for child in children {
+        child.join().unwrap();
+    }
+
+    // Print the result
+    println!("Final counter value: {}", *counter.lock().unwrap());
+}
+\end{lstlisting}
+\noindent
+In diesem Beispiel wird ein gemeinsamer Zähler von mehreren Threads erhöht. 
+Die Verwendung von \texttt{Arc<Mutex<i32>>} stellt sicher, dass nur ein Thread gleichzeitig auf den Zähler zugreifen kann, wodurch Datenrennen verhindert werden.\\
+\\
+Zum Vergleich zeigt das folgende Beispiel, wie man es \emph{nicht} machen kann, es gibt einen compile error:
+
+\begin{lstlisting}[language=Rust, caption=Unsicheres Erstellen von Threads in Rust]
+pub fn how_not_to_create_increment_threads(){
+    let mut counter = 0;
+    // need to use a reference 
+    // otherwise int will be copied for each thread.
+    // Explicit mutable reference to `counter`
+    let counter_ref = &mut counter; 
+
+    let mut handles = vec![];
+
+    for _ in 0..10 {
+        // use the mutable reference in multiple threads
+        let handle = thread::spawn(move || {
+            // Error: `counter_ref` 
+            // cannot be sent safely between threads
+            *counter_ref += 1; 
+        });
+        handles.push(handle);
+    }
+
+    for handle in handles {
+        handle.join().unwrap();
+    }
+
+    println!("Counter: {}", counter);
+}
+\end{lstlisting}
+\noindent
+Dieses Beispiel zeigt einen unsicheren Ansatz, bei dem eine mutable Referenz zu einem Zähler in mehrere Threads übergeben wird. 
+Dies führt zu einem Kompilierungsfehler, da Rusts Typensystem sicherstellt, dass solche unsicheren Zugriffe verhindert werden.
+
+\section{Vergleich mit anderen Programmiersprachen}
+
+Im Vergleich zu anderen Programmiersprachen wie C++ und Java bietet Rust erhebliche Sicherheitsvorteile. 
+In C++ beispielsweise muss der Programmierer manuell sicherstellen, dass Zugriffe auf geteilte Daten korrekt synchronisiert werden, was fehleranfällig und schwierig ist. 
+Java bietet eingebaute Synchronisationsmechanismen, aber diese sind oft mit Leistungseinbußen verbunden und weniger explizit in ihrer Nutzung.\\
+\\
+Rusts Ansatz kombiniert die Leistungsvorteile von C++ mit der Sicherheit und Einfachheit der Synchronisation in Java, bietet jedoch eine explizitere und sicherere Kontrolle über die Nebenläufigkeit durch sein Besitz- und Ausleihmodell.
+
+\section{Sicherheitsvorteile}
+
+Die Sicherheitsvorteile von Rusts Ansatz zur Nebenläufigkeit sind erheblich:
+
+\begin{itemize}
+    \item \textbf{Verhinderung von Datenrennen:} Durch die Verwendung von \texttt{Arc} und \texttt{Mutex} stellt Rust sicher, dass Datenrassen auf kompilierbarem Weg verhindert werden.
+    \item \textbf{Explizite Synchronisation:} Rust erfordert, dass alle Synchronisationspunkte explizit definiert werden, was die Lesbarkeit und Wartbarkeit des Codes erhöht.
+    \item \textbf{Hohe Leistung:} Trotz der zusätzlichen Sicherheit bietet Rust eine hohe Leistung, da es unnötige Synchronisationskosten vermeidet.
+\end{itemize}
+\noindent
+Diese Vorteile machen Rust zu einer hervorragenden Wahl für die Entwicklung sicherer und performanter Systeme, die intensive Nebenläufigkeit erfordern.
+

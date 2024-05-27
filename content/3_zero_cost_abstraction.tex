@@ -1,0 +1,122 @@
+\chapter{Zero-Cost-Abstraktionen}
+
+Zero-Cost-Abstraktionen sind ein zentrales Konzept in Rust, das es ermöglicht, hohe Abstraktionen zu verwenden, ohne die Laufzeitleistung zu beeinträchtigen. 
+Dies bedeutet, dass der Overhead, der durch die Abstraktionen entsteht, zur Kompilierzeit eliminiert wird, sodass der generierte Maschinencode genauso effizient ist wie handgeschriebener Low-Level-Code.
+
+\section{Theoretische Grundlagen}
+
+In vielen Programmiersprachen führen Abstraktionen zu einem gewissen Laufzeit-Overhead, sei es durch zusätzliche Funktionsaufrufe, Speicherallokationen oder andere Mechanismen.
+Rusts Zero-Cost-Abstraktionen gewährleisten, dass solche Abstraktionen zur Kompilierzeit aufgelöst werden, wodurch der generierte Code genauso effizient bleibt wie bei direkter Implementierung.
+
+\section{Praktische Beispiele}
+
+Hier sind einige Beispiele für Zero-Cost-Abstraktionen in Rust:
+
+\begin{itemize}
+    \item Iteratoren
+    \item Message Passing
+    \item Der \texttt{Option} Typ
+    \item Filter-Funktion
+\end{itemize}
+
+\subsection{Iteratoren}
+
+Rust bietet leistungsstarke Iteratoren, die keine zusätzlichen Laufzeitkosten verursachen. 
+Hier ist ein Beispiel, das zeigt, wie man sicher durch einen Vektor iteriert:
+
+\begin{lstlisting}[language=Rust, caption=Iterator-Beispiel]
+use std::sync::mpsc;
+use std::thread;
+
+pub fn iterator(){
+    let numbers = vec![1, 2, 3, 4, 5];
+
+    // Using an iterator to iterate through the vector safely
+    for num in numbers.iter() {
+        println!("{}", num); // Safely prints each number
+    }
+}
+\end{lstlisting}
+
+\cleardoublepage
+\subsection{Message Passing}
+
+Message Passing ist eine sichere und effiziente Methode zur Kommunikation zwischen Threads, die in Rust ebenfalls ohne Laufzeitkosten implementiert ist:
+
+\begin{lstlisting}[language=Rust, caption=Message Passing Beispiel]
+pub fn message_passing(){
+    let (tx, rx) = mpsc::channel();
+
+    let sender_thread = thread::spawn(move || {
+        let msg = "Hello from the sender thread";
+        // Sends a message safely to the receiver
+        tx.send(msg).unwrap(); 
+        println!("Sent message: '{}'", msg);
+    });
+
+    let receiver_thread = thread::spawn(move || {
+        // Receives message safely
+        let received = rx.recv().unwrap(); 
+        println!("Received message: '{}'", received);
+    });
+
+    sender_thread.join().unwrap();
+    receiver_thread.join().unwrap();
+}
+\end{lstlisting}
+
+\subsection{\texttt{Option} Typ}
+
+Der \texttt{Option} Typ wird verwendet, um mögliche Abwesenheit eines Wertes sicher zu handhaben. Hier ist ein Beispiel, wie man eine Division sicher durchführen kann:
+
+\begin{lstlisting}[language=Rust, caption=Option Typ Beispiel]
+pub fn option_type(){
+    let dividend = 10;
+    let divisor = 0;
+
+    match find_divisor(dividend, divisor) {
+        Some(result) => println!("Result of division: {}", result),
+        None => println!("Cannot divide by zero!"),
+    }
+}
+
+fn find_divisor(dividend: i32, divisor: i32) -> Option<i32> {
+    if divisor == 0 {
+        None // Safely handle division by zero
+    } else {
+        Some(dividend / divisor) // Safely return the result
+    }
+}
+\end{lstlisting}
+
+\subsection{Filter-Funktion}
+
+Die \texttt{filter} Methode ermöglicht es, Elemente eines Iterators basierend auf einer Bedingung zu filtern, ohne zusätzlichen Laufzeitaufwand:
+
+\begin{lstlisting}[language=Rust, caption=Filter-Funktion Beispiel]
+pub fn filter(){
+    let numbers = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+    // Use filter to find even numbers
+    let even_numbers: Vec<_> = numbers.iter()
+        .filter(|&&x| x % 2 == 0)
+        .collect();
+
+    println!("Even numbers: {:?}", even_numbers);
+}
+\end{lstlisting}
+
+\section{Vergleich mit anderen Programmiersprachen}
+
+In vielen anderen Programmiersprachen, wie zum Beispiel Python oder Java, führen hohe Abstraktionen häufig zu einem gewissen Maß an Laufzeitkosten. 
+Diese können in Form von zusätzlichen Funktionsaufrufen, Garbage Collection oder Speicherallokationen auftreten. 
+Rust eliminiert diese Kosten, indem es die Abstraktionen zur Kompilierzeit auflöst und so effizienten Maschinencode generiert.
+
+\section{Sicherheitsvorteile der Zero-Cost-Abstraktionen}
+
+Die Verwendung von Zero-Cost-Abstraktionen in Rust trägt erheblich zur Sicherheit des Codes bei, da sie:
+\begin{itemize}
+    \item Entwicklern ermöglichen, sichere und idiomatische Konstrukte zu verwenden, ohne sich um Leistungseinbußen sorgen zu müssen.
+    \item Fehler und Sicherheitslücken reduzieren, da die Abstraktionen sicher und effizient implementiert sind.
+    \item Den Code lesbarer und wartbarer machen, da Entwickler höhere Abstraktionslevel nutzen können, ohne auf Effizienz verzichten zu müssen.
+\end{itemize}

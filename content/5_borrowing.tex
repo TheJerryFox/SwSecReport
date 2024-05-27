@@ -1,0 +1,120 @@
+\chapter{Besitz und Ausleihe}
+
+\section{Theoretische Grundlagen}
+
+In Rust sind Besitz und Ausleihe grundlegende Konzepte, die zur Gewährleistung der Speicher- und Datensicherheit beitragen. Das Besitzmodell sorgt dafür, dass es stets einen eindeutigen Besitzer eines Datenobjekts gibt, während das Ausleihmodell ermöglicht, dass andere Teile des Codes temporär auf diese Daten zugreifen können, ohne deren Besitzer zu ändern. Dies verhindert Datenrennen und Speicherfehler.
+
+\section{Praktische Beispiele}
+
+\subsection{Copy-Typen}
+Copy-Typen sind einfache Datentypen, die eine bitweise Kopie beim Zuweisen erstellen. Primitive Typen wie \texttt{i32} sind Beispiele dafür.
+
+\begin{lstlisting}[language=Rust, caption=Copy-Typen Beispiel]
+pub fn copy_type() 
+{
+    let i1 = 32;
+    let i2 = i1;
+    
+    println!("{}, {}", i1, i2);
+}
+\end{lstlisting}
+
+Bei der Besitzübertragung wird der Besitz eines Datenobjekts von einer Variablen auf eine andere übertragen, was bedeutet, dass die ursprüngliche Variable nicht mehr auf das Objekt zugreifen kann.
+
+\begin{lstlisting}[language=Rust, caption=Unveränderliche Ausleihe Beispiel]
+pub fn transfer_ownership() {
+    let s1 = String::from("Hello");
+    // Ownership of the string is transferred from s1 to s2
+    let s2 = s1;  
+
+    // This line causes a compile-time error because 
+    // s1 no longer owns the string.
+    println!("{}", s1); 
+    // This works perfectly, s2 now owns the data.
+    println!("{}", s2); 
+}
+\end{lstlisting}
+\cleardoublepage
+\subsection{Ausleihe}
+Ausleihe ermöglicht es, dass eine Variable auf die Daten einer anderen Variable zugreift, ohne deren Besitzer zu ändern. Dies kann entweder als unveränderliche oder veränderliche Referenz erfolgen.
+
+\begin{lstlisting}[language=Rust, caption=Unveränderliche Ausleihe Beispiel]
+pub fn borrowing() {
+    let s1 = String::from("Hello");
+    // s2 is a reference to s1, s1 is borrowed
+    let s2 = &s1;  
+
+    // s1 is still valid and hasn't been moved.
+    println!("{}", s1); 
+    // s2 is a valid reference to s1.
+    println!("{}", s2); 
+}
+\end{lstlisting}
+
+\subsection{Veränderliche Referenzen}
+Veränderliche Referenzen ermöglichen das Ändern der Daten, auf die sie zeigen, jedoch kann zu einem Zeitpunkt nur eine veränderliche Referenz existieren.
+
+\begin{lstlisting}[language=Rust, caption=Veränderliche Referenz Beispiel]
+pub fn mut_reference() {
+    let mut s1 = String::from("Hello");
+    // s2 is a mutable reference to s1
+    let mut s2 = &mut s1;  
+
+    // only 1 mutable reference allowed
+    // will panic
+    let s3 = &mut s1;
+
+    // Modifying s1 through its mutable reference s2
+    s2.push_str(", world!"); 
+    // This works and prints "Hello, world!"
+    println!("{}", s2); 
+}
+\end{lstlisting}
+\cleardoublepage
+\subsection{Kopieren und Klonen}
+Während primitive Typen kopiert werden, müssen komplexe Typen wie Strukturen explizit geklont werden, um eine vollständige Kopie zu erstellen.
+
+\begin{lstlisting}[language=Rust, caption=Kopieren und Klonen von Strukturen Beispiel]
+#[derive(Debug, Clone)]
+struct Book {
+    title: String,
+    pages: u32,
+}
+
+pub fn copy_move_clone_book() {
+    let num1 = 42; // i32, which is Copy
+    let num2 = num1; // num1 is copied to num2
+
+    // Both can be used; num1 was copied
+    println!("num1: {}, num2: {}", num1, num2); 
+
+    let book1 = Book {
+        title: "Rust Programming".to_string(),
+        pages: 256,
+    };
+    // book1 is moved to book2
+    let book2 = book1; 
+
+    // will cause a compile error because book1 has been moved
+    println!("book1: {:?}", book1); 
+    // Only book2 can be used; book1 was moved
+    println!("book2: {:?}", book2); 
+                                    
+    let book3 = book2.clone();
+    println!("book2: {:?} book3: {:?}", book2, book3);
+}
+\end{lstlisting}
+
+\section{Vergleiche zu anderen Programmiersprachen}
+
+Im Gegensatz zu Rust erlauben viele andere Programmiersprachen wie C und C++ eine flexiblere, aber auch unsicherere Speicherverwaltung. In diesen Sprachen kann leicht unbeabsichtigter Code entstehen, der zu Speicherlecks oder Datenrennen führt. Rusts strikte Regeln für Besitz und Ausleihe verhindern solche Probleme, indem sie sicherstellen, dass es immer klar ist, wer für den Speicher eines Datenobjekts verantwortlich ist und wie darauf zugegriffen werden kann.
+
+\section{Sicherheitsvorteile der Besitz- und Ausleihregeln}
+
+Die strengen Regeln für Besitz und Ausleihe in Rust bieten mehrere Sicherheitsvorteile:
+
+\begin{itemize}
+    \item \textbf{Vermeidung von Datenrennen}: Da immer nur eine veränderliche Referenz zu einem Zeitpunkt erlaubt ist, sind Datenrennen ausgeschlossen.
+    \item \textbf{Speichersicherheit}: Rust verhindert durch seine Besitzregeln, dass Daten mehrfach freigegeben oder auf ungültigen Speicher zugegriffen wird.
+    \item \textbf{Klarheit und Sicherheit}: Der Compiler erzwingt klare Regeln für den Zugriff auf Daten, was zu sichererem und leichter verständlichem Code führt.
+\end{itemize}

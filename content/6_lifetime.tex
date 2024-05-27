@@ -1,0 +1,56 @@
+\chapter{Lebensdauer-Tracking}
+
+\section{Theoretische Grundlagen}
+Das Lebensdauer-Tracking ist ein zentrales Konzept in Rust, das dazu beiträgt, Speicherfehler zu verhindern. 
+Lebensdauern (\emph{lifetimes}) sind eine Art von generischen Parametern, die sicherstellen, dass Referenzen nur so lange gültig sind, wie es der Kontext erfordert. 
+Dies verhindert das Auftreten von Dangling References und ermöglicht eine präzise Kontrolle über die Lebensdauer von Daten im Speicher.\\
+\\
+Rust verwendet Lebensdauern, um sicherzustellen, dass Referenzen nicht auf ungültige Daten zeigen. Eine Lebensdauer beschreibt den Gültigkeitsbereich einer Referenz. 
+Rust prüft zur Kompilierzeit, dass alle Referenzen gültig sind, wodurch viele gängige Speicherfehler verhindert werden.
+
+\section{Praktische Beispiele}
+Hier sind zwei Beispiele, die zeigen, wie Lebensdauern in Rust verwendet werden:
+
+\begin{lstlisting}[language=Rust, caption={Ermitteln des ersten Wortes}]
+pub fn get_first_word(s: &str) -> &str {
+    s.split_whitespace().next().unwrap_or("")
+}
+\end{lstlisting}
+\noindent
+In diesem Beispiel wird eine Funktion definiert, die das erste Wort in einem String zurückgibt. 
+Der Rückgabewert ist eine Referenz auf ein Teilstück des Eingabestrings. Rust stellt sicher, dass die Rückgabe nur so lange gültig ist, wie der Eingabestring selbst.
+
+\begin{lstlisting}[language=Rust, caption={Längere von zwei Zeichenketten ermitteln}]
+pub fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+    if x.len() > y.len() {
+        x
+    } else {
+        y
+    }
+}
+\end{lstlisting}
+\noindent
+Hier wird eine Funktion definiert, die die längere von zwei Zeichenketten zurückgibt. 
+Beide Eingabereferenzen und die Rückgabereferenz haben dieselbe Lebensdauer `'a`. Das bedeutet, dass die Rückgabereferenz nur so lange gültig ist, wie beide Eingabereferenzen gültig sind.
+
+\section{Vergleich mit anderen Programmiersprachen}
+In vielen Programmiersprachen wie C und C++ muss der Programmierer manuell sicherstellen, dass Referenzen nicht auf ungültige Speicherbereiche zeigen. 
+Dies führt oft zu Speicherfehlern wie Dangling References und Speicherlecks.\\
+\\
+Im Gegensatz dazu prüft Rust zur Kompilierzeit die Gültigkeit von Referenzen durch das Lebensdauer-Tracking. Dies führt zu sichererem Code, da viele Speicherfehler frühzeitig erkannt und verhindert werden.
+
+\subsection{Sicherheitsvorteile}
+Das Lebensdauer-Tracking in Rust bietet mehrere Sicherheitsvorteile:
+
+\begin{itemize}
+    \item \textbf{Vermeidung von Dangling References:} Lebensdauern stellen sicher, dass Referenzen nur so lange gültig sind, wie die referenzierten Daten.
+    \item \textbf{Kompilierzeitprüfungen:} Viele Speicherfehler werden bereits zur Kompilierzeit erkannt, was die Zuverlässigkeit des Codes erhöht.
+    \item \textbf{Keine Garbage Collection:} Rust erreicht Speicher- und Referenzsicherheit ohne Garbage Collection, was zu besserer Performance führt.
+\end{itemize}
+\noindent
+Durch das Lebensdauer-Tracking stellt Rust sicher, dass Programme sicher und effizient arbeiten, ohne die typischen Probleme von Speicherverwaltung und Referenzen.
+
+\section{Fazit}
+Lebensdauer-Tracking ist ein mächtiges Werkzeug in Rust, das zur Speicher- und Referenzsicherheit beiträgt. 
+Durch die strikte Kontrolle und Kompilierzeitprüfungen können viele gängige Fehler vermieden werden. Dies macht Rust zu einer hervorragenden Wahl für sicherheitskritische und performante Anwendungen.
+

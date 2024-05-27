@@ -1,0 +1,70 @@
+\chapter{Integer-Überlauf}
+
+\section{Theoretische Grundlagen}
+
+Der Integer-Überlauf ist ein häufiges Problem in vielen Programmiersprachen, das zu unerwartetem Verhalten und Sicherheitslücken führen kann. 
+Ein Integer-Überlauf tritt auf, wenn eine arithmetische Operation das Maximum (oder Minimum) des für den Datentyp zulässigen Wertebereichs überschreitet. 
+In vielen Programmiersprachen führt dies zu undefiniertem Verhalten oder unvorhersehbaren Ergebnissen, was potenziell ausnutzbare Schwachstellen zur Folge haben kann.\\
+\\
+Rust hingegen bietet verschiedene Mechanismen, um Integer-Überläufe sicher zu handhaben und das Verhalten explizit zu definieren. 
+Diese Mechanismen sorgen dafür, dass der Code sicherer und robuster wird.
+
+\section{Praktische Beispiele}
+
+Das folgende Beispiel zeigt, wie Rust Integer-Überläufe in verschiedenen Szenarien behandelt:
+
+\begin{lstlisting}[language=Rust, caption=Beispielcode zur Behandlung von Integer-Überläufen in Rust]
+pub fn overflow_how_not(){
+    let a: i32 = i32::MAX;
+    // panic in release mode due to runtime checks
+    // wil wrap in release mode -> defined behaviour
+    let b = a + 1;  
+
+    println!("{}", b);
+}
+
+pub fn overflow(){
+    let a: i32 = i32::MAX;
+
+    // checked addition 
+    let checked_sum = a.checked_add(1);
+    println!("Checked sum: {:?}", checked_sum);  
+
+    // wrapping addition 
+    let wrapping_sum = a.wrapping_add(1);
+    println!("Wrapping sum: {}", wrapping_sum);  
+
+    // saturating addition 
+    let saturating_sum = a.saturating_add(1);
+    println!("Saturating sum: {}", saturating_sum);  
+
+    // overflowing addition 
+    let (overflowing_sum, overflowed) = a.overflowing_add(1);
+    println!("Overflowing sum: {}, overflowed: {}", overflowing_sum, overflowed);  
+}
+\end{lstlisting}
+
+\section{Vergleich mit anderen Programmiersprachen}
+
+In vielen Programmiersprachen wie C und C++ wird ein Integer-Überlauf nicht automatisch erkannt, was zu undefiniertem Verhalten führen kann. 
+Dies kann schwerwiegende Sicherheitslücken verursachen, die von Angreifern ausgenutzt werden können.
+
+Rust hingegen bietet mehrere Möglichkeiten, Integer-Überläufe sicher zu handhaben:
+
+\begin{itemize}
+    \item \textbf{Überprüfte Addition (checked addition)}: Gibt \texttt{None} zurück, wenn ein Überlauf auftritt.
+    \item \textbf{Wrappende Addition (wrapping addition)}: Wickelt den Wert bei Überlauf um, entsprechend dem Wertebereich des Datentyps.
+    \item \textbf{Sättigende Addition (saturating addition)}: Begrenzte den Wert auf den maximalen oder minimalen Wert des Datentyps bei Überlauf.
+    \item \textbf{Überlaufende Addition (overflowing addition)}: Gibt ein Tupel zurück, bestehend aus dem Ergebnis der Addition und einem booleschen Wert, der anzeigt, ob ein Überlauf aufgetreten ist.
+\end{itemize}
+\noindent
+Diese Mechanismen stellen sicher, dass der Entwickler das Verhalten bei einem Überlauf explizit kontrollieren und somit sichereren Code schreiben kann.
+
+\section{Sicherheitsvorteile der Rust-Features}
+
+Durch die explizite Handhabung von Integer-Überläufen trägt Rust erheblich zur Sicherheit von Anwendungen bei. 
+Entwickler können bewusst entscheiden, wie Überläufe behandelt werden sollen, und vermeiden so unvorhersehbare und potenziell gefährliche Situationen. 
+Die verschiedenen Methoden zur Überlaufbehandlung ermöglichen es, die Anforderungen unterschiedlicher Anwendungsfälle zu erfüllen, ohne Kompromisse bei der Sicherheit einzugehen.\\
+\\
+Zusammengefasst bietet Rust durch seine strikte und transparente Handhabung von Integer-Überläufen eine solide Basis für die Entwicklung sicherer Software, die weniger anfällig für typische Sicherheitslücken ist, wie sie in anderen Programmiersprachen häufig auftreten.
+

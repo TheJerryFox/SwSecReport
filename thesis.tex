@@ -20,15 +20,15 @@
 
 
 % details about your thesis
-\newcommand{\titel}{My very fancy thesis title.}
-\newcommand{\artderarbeit}{Bachelorarbeit}  % {Bachelorarbeit,Masterarbeit}
-\newcommand{\autor}{Georg Simon Ohm}
+\newcommand{\titel}{Sicherheitsaspekte Rust}
+\newcommand{\artderarbeit}{Bericht}  % {Bachelorarbeit,Masterarbeit}
+\newcommand{\autor}{Robin Rosner}
 \newcommand{\studiengang}{Informatik}  % {Informatik,Wirtschaftsinformatik,Medieninformatik}
-\newcommand{\matrikelnr}{123\,4567}
-\newcommand{\erstgutachter}{Prof.\,Dr.~Korbinian Riedhammer}
-\newcommand{\zweitgutachter}{Prof.\,Dr.~Bartosz von\,Rymon}
-\newcommand{\betreuer}{M.Sc.\,~Martina Schmidt}
-\newcommand{\unternehmen}{Musterfirma GmbH}
+\newcommand{\matrikelnr}{362\,5303}
+\newcommand{\erstgutachter}{}
+\newcommand{\zweitgutachter}{}
+\newcommand{\betreuer}{}
+\newcommand{\unternehmen}{}
 \newcommand{\logo}{figures/TH-Nuernberg-RGB.png}
 \newcommand{\keywords}{hot, fuzz}
  
@@ -108,6 +108,7 @@
 \usepackage{ragged2e}
 \usepackage{lscape}
 \usepackage{setspace}
+
 %\usepackage{fancyhdr}
 %\usepackage[hidelinks]{hyperreff}
 %\fancypagestyle{mystyle}{%
@@ -195,29 +196,51 @@
 % download the following form and complete it (hit save in your editor)
 % https://intern.ohmportal.de/fileadmin/Gelenkte_Doks/Abt/SZS/SB/SB_0050_FO_Pruefungsrechtliche_Erklaerung_und_Erklaerung_zur_Veroeffentlichung_der_Abschlussarbeit_public.pdf
 %\includepdf{SB_0050_FO_Pruefungsrechtliche_Erklaerung_und_Erklaerung_zur_Veroeffentlichung_der_Abschlussarbeit_public.pdf}\cleardoublepage
+% Define Rust language for listings
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinelanguage{Rust}{
+    keywords={fn, let, mut, if, else, match, while, for, in, loop, break, continue, return, struct, enum, impl, trait, const, static, use, mod, pub, crate, super, Self, self, extern, move, ref, type, where, as, dyn, async, await, unsafe},
+    keywordstyle=\color{magenta},
+    ndkeywords={bool, u8, u16, u32, u64, i8, i16, i32, i64, usize, isize, f32, f64, char, str, Option, Some, None, Result, Ok, Err, String, Vec},
+    ndkeywordstyle=\color{codepurple},
+    identifierstyle=\color{black},
+    sensitive=true,
+    comment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    commentstyle=\color{codegreen}\ttfamily,
+    stringstyle=\color{codepurple}\ttfamily,
+    morestring=[b]',
+    morestring=[b]"
+}
 
 \include{content/0_abstract}\cleardoublepage
 
 \tableofcontents
 
 \mainmatter
-\include{content/1_intro}
-\include{content/2_data}
-\include{content/3_method}
-\include{content/4_experiments}
-\include{content/5_outlook}
-\include{content/6_summary}
+%\include{content/1_intro}
+\include{content/1_static_types}
+\include{content/2_integer_overflow}
+\include{content/3_zero_cost_abstraction}
+\include{content/4_error_handling}
+\include{content/5_borrowing}
+\include{content/6_lifetime}
+\include{content/7_concurency}
+\include{content/8_conclusion}
 
 % remove if not needed
 \appendix
 \include{content/a1_supplemental}
 
 \backmatter
-\listoffigures
-\cleardoublepage
+%\listoffigures
+%\cleardoublepage
 
-\listoftables
-\cleardoublepage
+%\listoftables
+%cleardoublepage
 
 \renewcommand{\lstlistlistingname}{List of Listings}  % change for German thesis
 \lstlistoflistings
@@ -226,6 +249,6 @@
 \bibliographystyle{wmaainf}
 \bibliography{refs}
 
-\printnoidxglossaries
+%\printnoidxglossaries
 
 \end{document}
