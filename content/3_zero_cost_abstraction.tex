@@ -37,7 +37,7 @@ pub fn iterator(){
     }
 }
 \end{lstlisting}
-
+Ein solcher Iterator löst die Programmlogik von der Schleifenlogik, wodurch typische fehler wie \textit{off by one} und daraus resultierende falsche array indexierung vermieden werden.
 \cleardoublepage
 \subsection{Message Passing}
 
@@ -64,7 +64,8 @@ pub fn message_passing(){
     receiver_thread.join().unwrap();
 }
 \end{lstlisting}
-
+Durch eine solche einfach Abstraktion können Datenrennen zwischen threads vermieden werden.
+Trotzdem können Threads effektiv komunizieren und der Code bleibt lesbar.
 \subsection{\texttt{Option} Typ}
 
 Der \texttt{Option} Typ wird verwendet, um mögliche Abwesenheit eines Wertes sicher zu handhaben. Hier ist ein Beispiel, wie man eine Division sicher durchführen kann:
@@ -88,6 +89,9 @@ fn find_divisor(dividend: i32, divisor: i32) -> Option<i32> {
     }
 }
 \end{lstlisting}
+\noindent
+Ein \textit{Option} gibt entweder einen wert \textit{Some} zurück oder einen \textit{None} Wert.
+Mittels \textit{match} kann geprüft werden ob ein Wert vorliegt und dementsprechend verarbeitet werden.
 
 \subsection{Filter-Funktion}
 
@@ -105,7 +109,9 @@ pub fn filter(){
     println!("Even numbers: {:?}", even_numbers);
 }
 \end{lstlisting}
-
+Ein Filter auf einem Iterator seperiert zusätzlich die Filter logik.
+An dieser stelle könnte auch eine Methode verwendet werden.
+Dies sorgt für besser lesbaren Code und beugt logik fehlern vor (off by one etc.).
 \section{Vergleich mit anderen Programmiersprachen}
 
 In vielen anderen Programmiersprachen, wie zum Beispiel Python oder Java, führen hohe Abstraktionen häufig zu einem gewissen Maß an Laufzeitkosten. 

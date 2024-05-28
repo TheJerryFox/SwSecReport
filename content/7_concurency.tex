@@ -6,9 +6,21 @@ Nebenläufigkeit ist ein wesentlicher Aspekt moderner Softwareentwicklung, insbe
 Jedoch birgt die Nebenläufigkeit zahlreiche Herausforderungen, insbesondere im Hinblick auf die Sicherheit und Korrektheit des Codes.
 Datenrennen sind ein häufiges Problem, das auftritt, wenn mehrere Threads gleichzeitig auf dieselben Daten zugreifen und diese ändern, ohne dass die Zugriffe korrekt synchronisiert sind.\\ 
 \\
-Rust bietet einen innovativen Ansatz zur sicheren Nebenläufigkeit, indem es die Konzepte der Besitzrechte (Ownership) und des Ausleihens (Borrowing) auf Threads anwendet. 
-Dies wird durch die Einbindung von Mechanismen wie \texttt{Arc} (Atomic Reference Counting) und \texttt{Mutex} (Mutual Exclusion) erreicht, die sicherstellen, dass Datenrassen verhindert werden, während gleichzeitig eine hohe Leistung erzielt wird.
+Rust bietet einen Ansatz zur sicheren Nebenläufigkeit, indem es die Konzepte der Besitzrechte (Ownership) und des Ausleihens (Borrowing) auf Threads anwendet. 
+Dies wird durch die Einbindung von Mechanismen wie \texttt{Arc} (Atomic Reference Counting) und \texttt{Mutex} (Mutual Exclusion) erreicht, die sicherstellen, dass Datenrennen verhindert werden, während gleichzeitig eine hohe Leistung erzielt wird.\\
+\\
+\texttt{Arc} (Atomic Reference Counting) ist ein Thread-sicherer Referenzzähler, der es ermöglicht, dass mehrere Threads gleichzeitig Besitz an den gleichen Daten haben, indem er die Daten im Heap speichert und den Zähler atomar verwaltet. 
+Dadurch bleibt der Speicher erhalten, solange mindestens eine Referenz darauf existiert.\\
+\\
+\texttt{Mutex} (Mutual Exclusion) ist ein Synchronisationsprimitiv, das sicherstellt, dass nur ein Thread zu einem bestimmten Zeitpunkt auf die geschützten Daten zugreifen kann. 
+Ein \texttt{Mutex} in Rust liefert einen \texttt{MutexGuard}, der den Zugriff auf die Daten kontrolliert und den \texttt{Mutex} freigibt, sobald der Guard außer Gültigkeit gerät.\\
+\\
+Durch die Kombination von \texttt{Arc} und \texttt{Mutex} wird sichergestellt, dass veränderliche Daten sicher zwischen mehreren Threads geteilt werden können. 
+\texttt{Arc} übernimmt das Zählen der Referenzen, während \texttt{Mutex} den exklusiven Zugriff auf die Daten garantiert. 
+Dies funktioniert reibungslos mit Rusts Ownership- und Borrowing-System, da \texttt{Arc} die Besitzrechte an den Daten teilt und \texttt{Mutex} den Zugriff kontrolliert, um Datenrennen zu vermeiden. 
+Durch das explizite Anfordern und Freigeben von Sperren mit \texttt{MutexGuard} bleibt der Code dennoch performancestark und sicher.
 
+\cleardoublepage
 \section{Praktische Beispiele}
 
 Hier ist ein Beispiel, das zeigt, wie man in Rust sicher Threads erstellt, die gemeinsam einen Zähler erhöhen:
@@ -110,5 +122,4 @@ Die Sicherheitsvorteile von Rusts Ansatz zur Nebenläufigkeit sind erheblich:
     \item \textbf{Hohe Leistung:} Trotz der zusätzlichen Sicherheit bietet Rust eine hohe Leistung, da es unnötige Synchronisationskosten vermeidet.
 \end{itemize}
 \noindent
-Diese Vorteile machen Rust zu einer hervorragenden Wahl für die Entwicklung sicherer und performanter Systeme, die intensive Nebenläufigkeit erfordern.
 

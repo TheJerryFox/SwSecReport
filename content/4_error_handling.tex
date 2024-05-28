@@ -52,7 +52,10 @@ fn read_file_content() -> Result<String, std::io::Error> {
 \end{lstlisting}
 \noindent
 Im ersten Beispiel wird keine Fehlerbehandlung vorgenommen. 
-Das Programm wird mit \texttt{unwrap()} gezwungen, den Inhalt der Datei zu lesen, was zum Absturz des Programms führt, falls ein Fehler auftritt. Im zweiten Beispiel wird die \texttt{Result}-Typ verwendet, um Fehler abzufangen und zu behandeln, was zu einem robusteren und sichereren Code führt.
+Das Programm wird mit \texttt{unwrap()} gezwungen, den Inhalt der Datei zu lesen, was zum Absturz des Programms führt, falls ein Fehler auftritt. Im zweiten Beispiel wird die \texttt{Result}-Typ verwendet, um Fehler abzufangen und zu behandeln, was zu einem robusteren und sichereren Code führt.\\
+\\
+\textit{Unwrap} gibt von einem Fehlertyp den Wert zurück falls ein Fehler vorliegt geht das Program in eine \textit{Panic}. 
+Mittels \textit{match} kann überprüft werden, ob das Result \textit{OK} ist und ein Wert vorliegt oder ob das \textit{Result} ein Fehler ist.
 
 \section{Vergleich mit anderen Programmiersprachen}
 In vielen anderen Programmiersprachen, wie z.B. C++ oder Java, werden Ausnahmen \\ (\texttt{exceptions}) verwendet, um Fehler zu behandeln. 

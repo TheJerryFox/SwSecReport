@@ -18,7 +18,9 @@ pub fn get_first_word(s: &str) -> &str {
 \end{lstlisting}
 \noindent
 In diesem Beispiel wird eine Funktion definiert, die das erste Wort in einem String zurückgibt. 
-Der Rückgabewert ist eine Referenz auf ein Teilstück des Eingabestrings. Rust stellt sicher, dass die Rückgabe nur so lange gültig ist, wie der Eingabestring selbst.
+Der Rückgabewert ist eine Referenz auf ein Teilstück des Eingabestrings.
+Rust stellt sicher, dass die Rückgabe nur so lange gültig ist, wie der Eingabestring selbst.
+In diesem Beispiel kann Rust die Lebensdauer aus dem Kontext heraus selbst bestimmen.
 
 \begin{lstlisting}[language=Rust, caption={Längere von zwei Zeichenketten ermitteln}]
 pub fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
@@ -31,13 +33,19 @@ pub fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
 \end{lstlisting}
 \noindent
 Hier wird eine Funktion definiert, die die längere von zwei Zeichenketten zurückgibt. 
-Beide Eingabereferenzen und die Rückgabereferenz haben dieselbe Lebensdauer `'a`. Das bedeutet, dass die Rückgabereferenz nur so lange gültig ist, wie beide Eingabereferenzen gültig sind.
+Beide Eingabereferenzen und die Rückgabereferenz haben dieselbe Lebensdauer \texttt{'a}. 
+Das bedeutet, dass die Rückgabereferenz nur so lange gültig ist, wie beide Eingabereferenzen gültig sind.\\
+\\
+Die Angabe der Lebensdauer ist notwendig, da der Compiler ohne diese Annotation nicht in der Lage ist, die Beziehung zwischen den Lebensdauern der Eingabereferenzen und der Rückgabereferenz zu erkennen. 
+Rusts Borrow-Checker kann ohne die explizite Angabe der Lebensdauer \texttt{'a} nicht sicherstellen, dass die Rückgabe einer der Eingabereferenzen keine ungültigen Referenzen erzeugt. 
+Die Lebensdauer \texttt{'a} stellt sicher, dass die Rückgabereferenz nur so lange gültig ist, wie beide Eingabereferenzen gültig sind, wodurch Speicherfehler vermieden werden.
 
 \section{Vergleich mit anderen Programmiersprachen}
 In vielen Programmiersprachen wie C und C++ muss der Programmierer manuell sicherstellen, dass Referenzen nicht auf ungültige Speicherbereiche zeigen. 
-Dies führt oft zu Speicherfehlern wie Dangling References und Speicherlecks.\\
+Dies führt oft zu Speicherfehlern wie Dangling References und Speicherlecks oder geringere Performance mit einem Garabe Collector.\\
 \\
-Im Gegensatz dazu prüft Rust zur Kompilierzeit die Gültigkeit von Referenzen durch das Lebensdauer-Tracking. Dies führt zu sichererem Code, da viele Speicherfehler frühzeitig erkannt und verhindert werden.
+Im Gegensatz dazu prüft Rust zur Kompilierzeit die Gültigkeit von Referenzen durch das Lebensdauer-Tracking. 
+Dies führt zu sichererem Code, da viele Speicherfehler frühzeitig erkannt und verhindert werden.
 
 \subsection{Sicherheitsvorteile}
 Das Lebensdauer-Tracking in Rust bietet mehrere Sicherheitsvorteile:
@@ -52,5 +60,6 @@ Durch das Lebensdauer-Tracking stellt Rust sicher, dass Programme sicher und eff
 
 \section{Fazit}
 Lebensdauer-Tracking ist ein mächtiges Werkzeug in Rust, das zur Speicher- und Referenzsicherheit beiträgt. 
-Durch die strikte Kontrolle und Kompilierzeitprüfungen können viele gängige Fehler vermieden werden. Dies macht Rust zu einer hervorragenden Wahl für sicherheitskritische und performante Anwendungen.
+Durch die strikte Kontrolle und Kompilierzeitprüfungen können viele gängige Fehler vermieden werden. 
+Dies macht Rust zu einer Wahl für sicherheitskritische und performante Anwendungen.
 

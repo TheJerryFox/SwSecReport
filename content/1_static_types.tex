@@ -3,7 +3,9 @@
 
 \section{Theoretische Grundlagen}
 
-Rust ist eine statisch typisierte Programmiersprache, was bedeutet, dass die Typen aller Variablen zur Kompilierzeit bekannt sein müssen. Dies ermöglicht dem Compiler, viele Fehler frühzeitig zu erkennen und zu verhindern, dass unsichere Operationen ausgeführt werden. Statische Typisierung trägt erheblich zur Sicherheit und Stabilität von Programmen bei, da Typfehler und Typinkompatibilitäten bereits beim Kompilieren entdeckt werden.
+Rust ist eine statisch typisierte Programmiersprache, was bedeutet, dass die Typen aller Variablen zur Kompilierzeit bekannt sein müssen. 
+Dies ermöglicht dem Compiler, viele Fehler frühzeitig zu erkennen und zu verhindern, dass unsichere Operationen ausgeführt werden. 
+Statische Typisierung trägt erheblich zur Sicherheit und Stabilität von Programmen bei, da Typfehler und Typinkompatibilitäten bereits beim Kompilieren entdeckt werden.
 
 \section{Praktische Beispiele}
 
@@ -13,7 +15,7 @@ Im Folgenden sind einige Beispiele, die die strenge Typüberprüfung in Rust dem
 pub fn i32_in_i64() {
     let smol: i32 = 128;
 
-    // panic: i32 will not get konverted to i64
+    // panic: i32 will not get converted to i64
     let big: i64 = smol;
 
     // explicit conversion from i32 to i64 
@@ -24,7 +26,9 @@ pub fn i32_in_i64() {
 \end{lstlisting}
 
 \noindent
-In diesem Beispiel wird versucht, einen \texttt{i32} Wert direkt in einen \texttt{i64} Wert zu konvertieren, was nicht erlaubt ist. Stattdessen kann die Methode \texttt{into()} verwendet werden.
+In diesem Beispiel wird versucht, einen \texttt{i32} Wert direkt in einen \texttt{i64} Wert zu konvertieren, was nicht erlaubt ist. 
+Stattdessen kann die Methode \texttt{into()} verwendet werden, um expliziet bewusstsein für eine Typenkonvertierung und deren Risiken zu schaffen.
+
 
 \begin{lstlisting}[language=Rust, caption={Signiertheit}]
 pub fn signdness() {
@@ -47,11 +51,14 @@ pub fn signdness() {
     }
 \end{lstlisting}
 \noindent
-In diesem Beispiel zeigt die Funktion \texttt{signdness()} die möglichen Probleme und sicheren Praktiken bei der Konvertierung zwischen signierten und unsignierten Typen. Direkte Konvertierungen können zu logischen Fehlern oder Überläufen führen, daher ist es wichtig, explizite und sichere Methoden zu verwenden.
+In diesem Beispiel zeigt die Funktion \texttt{signdness()} die möglichen Probleme bei der Konvertierung zwischen signierten und unsignierten Typen. 
+Direkte Konvertierungen können zu logischen Fehlern oder Überläufen führen, daher ist es wichtig, explizite und sichere Methoden zu verwenden.
+Auch hier muss der Programierer explicit eine Konvertierung angeben.
 
 \subsection{Vergleich mit anderen Programmiersprachen}
 
-In vielen dynamisch typisierten Sprachen wie Python oder JavaScript werden Typfehler erst zur Laufzeit entdeckt, was zu unvorhersehbarem Verhalten und potenziellen Sicherheitslücken führen kann. Sprachen wie C und C++ bieten zwar statische Typisierung, aber ohne die strengen Sicherheitsgarantien und automatischen Prüfungen von Rust, was zu Fehlern wie Pufferüberläufen führen kann.
+In vielen dynamisch typisierten Sprachen wie Python oder JavaScript werden Typfehler erst zur Laufzeit entdeckt, was zu unvorhersehbarem Verhalten und potenziellen Sicherheitslücken führen kann. 
+Sprachen wie C und C++ bieten zwar statische Typisierung, aber ohne die strengen Sicherheitsgarantien wie bindende Typenumwandlung und automatischen Prüfungen von Rust, was zu Fehlern wie Pufferüberläufen führen kann.
 
 \subsection{Sicherheitsvorteile der Statischen Typen in Rust}
 

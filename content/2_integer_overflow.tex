@@ -48,8 +48,11 @@ pub fn overflow(){
 
 In vielen Programmiersprachen wie C und C++ wird ein Integer-Überlauf nicht automatisch erkannt, was zu undefiniertem Verhalten führen kann. 
 Dies kann schwerwiegende Sicherheitslücken verursachen, die von Angreifern ausgenutzt werden können.
-
-Rust hingegen bietet mehrere Möglichkeiten, Integer-Überläufe sicher zu handhaben:
+Rust überprüft auf überlaufe im Debug-modus.
+Im Release-modus ist diese überpürung aus performance gründen standardmäßg deaktiviert.
+Eine über- oder unterlauf ist in Rust aber immer definiertes verhalten mit einem \textit{wrap around}.\\
+\\
+Rust bietet mehrere Möglichkeiten, Integer-Überläufe sicher zu handhaben:
 
 \begin{itemize}
     \item \textbf{Überprüfte Addition (checked addition)}: Gibt \texttt{None} zurück, wenn ein Überlauf auftritt.

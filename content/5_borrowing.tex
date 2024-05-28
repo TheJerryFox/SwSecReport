@@ -18,7 +18,7 @@ pub fn copy_type()
     println!("{}, {}", i1, i2);
 }
 \end{lstlisting}
-
+\noindent
 Bei der Besitzübertragung wird der Besitz eines Datenobjekts von einer Variablen auf eine andere übertragen, was bedeutet, dass die ursprüngliche Variable nicht mehr auf das Objekt zugreifen kann.
 
 \begin{lstlisting}[language=Rust, caption=Unveränderliche Ausleihe Beispiel]
@@ -72,7 +72,12 @@ pub fn mut_reference() {
 \end{lstlisting}
 \cleardoublepage
 \subsection{Kopieren und Klonen}
-Während primitive Typen kopiert werden, müssen komplexe Typen wie Strukturen explizit geklont werden, um eine vollständige Kopie zu erstellen.
+Während primitive Typen kopiert werden, müssen komplexe Typen wie Strukturen explizit geklont werden, um eine vollständige Kopie zu erstellen.\\
+\\
+Dies liegt daran, dass primitive Typen wie Ganzzahlen oder boolesche Werte eine feste, geringe Größe haben und direkt auf dem Stack gespeichert werden, wodurch das Kopieren effizient und unkompliziert ist. 
+Komplexe Typen hingegen, wie Strukturen oder Vektoren, können größere und dynamische Daten enthalten, die auf dem Heap gespeichert werden. 
+Das einfache Kopieren eines solchen komplexen Typs würde nur eine flache Kopie erstellen, die Referenzen auf dieselben Speicheradressen enthält. 
+Um diese Problematik zu vermeiden und eine echte, tiefe Kopie zu erzeugen, muss die \texttt{Clone}-Trait implementiert und die \texttt{clone}-Methode aufgerufen werden.
 
 \begin{lstlisting}[language=Rust, caption=Kopieren und Klonen von Strukturen Beispiel]
 #[derive(Debug, Clone)]
