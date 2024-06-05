@@ -1,13 +1,10 @@
 \chapter{Fehlerbehandlung}
-Rust bietet einen robusten Ansatz zur Fehlerbehandlung, der ohne Ausnahmen auskommt und somit eine sichere und vorhersehbare Fehlerbehandlung ermöglicht. Im Gegensatz zu vielen anderen Programmiersprachen verwendet Rust das \texttt{Result} und \texttt{Option} Typsystem, um Fehler und fehlende Werte explizit zu behandeln.
+Rust bietet einen robusten Ansatz zur Fehlerbehandlung, der ohne Ausnahmen auskommt und somit eine sichere und vorhersehbare Fehlerbehandlung ermöglicht. 
+Im Gegensatz zu vielen anderen Programmiersprachen verwendet Rust das \texttt{Result} und \texttt{Option} Typsystem, um Fehler und fehlende Werte explizit zu behandeln.
 
 \section{Theoretische Grundlagen}
-In Rust werden Fehler durch die Typen \texttt{Result<T, E>} und \texttt{Option<T>} behandelt. \texttt{Result<T, E>} ist ein Typ, der entweder einen Wert vom Typ \texttt{T} oder einen Fehler vom Typ \texttt{E} enthält. \texttt{Option<T>} repräsentiert einen optionalen Wert, der entweder \texttt{Some(T)} oder \texttt{None} sein kann.
-
-\begin{itemize}
-    \item \texttt{Result<T, E>}: Wird verwendet, um den Erfolg oder Misserfolg einer Operation anzuzeigen.
-    \item \texttt{Option<T>}: Wird verwendet, wenn ein Wert optional sein kann.
-\end{itemize}
+In Rust werden Fehler durch die Typen \texttt{Result<T, E>} und \texttt{Option<T>} behandelt. 
+\texttt{Result<T, E>} ist ein Typ, der entweder einen Wert vom Typ \texttt{T} oder einen Fehler vom Typ \texttt{E} enthält. 
 
 \section{Praktische Beispiele}
 Im Folgenden werden zwei Beispiele gezeigt: eines, das keine sichere Fehlerbehandlung verwendet, und eines, das Rusts robusten Ansatz zur Fehlerbehandlung nutzt.
@@ -54,17 +51,17 @@ fn read_file_content() -> Result<String, std::io::Error> {
 Im ersten Beispiel wird keine Fehlerbehandlung vorgenommen. 
 Das Programm wird mit \texttt{unwrap()} gezwungen, den Inhalt der Datei zu lesen, was zum Absturz des Programms führt, falls ein Fehler auftritt. Im zweiten Beispiel wird die \texttt{Result}-Typ verwendet, um Fehler abzufangen und zu behandeln, was zu einem robusteren und sichereren Code führt.\\
 \\
-\textit{Unwrap} gibt von einem Fehlertyp den Wert zurück falls ein Fehler vorliegt geht das Program in eine \textit{Panic}. 
-Mittels \textit{match} kann überprüft werden, ob das Result \textit{OK} ist und ein Wert vorliegt oder ob das \textit{Result} ein Fehler ist.
+\texttt{Unwrap()} gibt von einem Fehlertyp den Wert zurück falls ein Fehler vorliegt geht das Program in eine \textit{\gls{panic}}. 
+Mittels \texttt{match} kann überprüft werden, ob das Result \texttt{OK} ist und ein Wert vorliegt oder ob das \texttt{Result} ein Fehler ist.
 
 \section{Vergleich mit anderen Programmiersprachen}
-In vielen anderen Programmiersprachen, wie z.B. C++ oder Java, werden Ausnahmen \\ (\texttt{exceptions}) verwendet, um Fehler zu behandeln. 
-Dies kann jedoch zu unvorhersehbarem Verhalten führen, insbesondere wenn Ausnahmen nicht ordnungsgemäß abgefangen werden. Rusts Ansatz, Fehler explizit zu behandeln, führt zu einem deterministischeren Verhalten und fördert den bewussten Umgang mit Fehlern.
+In vielen anderen Programmiersprachen, wie z.B. C++ oder Java, werden Ausnahmen \\ (\textit{\glspl{exception}}) verwendet, um Fehler zu behandeln. 
+Rusts Ansatz, Fehler explizit zu behandeln, führt zu einem vorhersebahren Verhalten und fördert den bewussten Umgang mit Fehlern \cite[Kapitel 9]{rust2023}.
 
 \begin{itemize}
     \item \textbf{C++}: Verwendet Ausnahmen, die oft schwer nachzuvollziehen und zu debuggen sind.
     \item \textbf{Java}: Nutzt ebenfalls Ausnahmen, wobei der Entwickler sicherstellen muss, dass alle möglichen Ausnahmen abgefangen werden.
-    \item \textbf{Rust}: Verwendet das \texttt{Result} und \texttt{Option} Typsystem, um Fehler explizit zu behandeln, was zu sichererem und robusterem Code führt.
+    \item \textbf{Rust}: Verwendet das \texttt{Result} und \texttt{Option} Typsystem, um Fehler explizit zu behandeln.
 \end{itemize}
 
 \section{Sicherheitsvorteile}
@@ -72,9 +69,8 @@ Rusts Ansatz zur Fehlerbehandlung bietet mehrere Sicherheitsvorteile:
 
 \begin{itemize}
     \item \textbf{Vorhersehbarkeit}: Da Fehler explizit behandelt werden müssen, ist das Verhalten des Programms vorhersehbarer.
-    \item \textbf{Vermeidung von Panics}: Durch die Verwendung von \texttt{Result} und \texttt{Option} können viele Panics vermieden werden, was die Stabilität des Programms erhöht.
+    \item \textbf{Vermeidung von Panics}: Durch die Verwendung von \texttt{Result} und \texttt{Option} können viele \textit{\glspl{panic}} vermieden werden, was die Stabilität des Programms erhöht.
     \item \textbf{Robustheit}: Der Code wird robuster, da alle möglichen Fehlerfälle berücksichtigt und behandelt werden, sofern das unsichere \texttt{unwrap()} vermieden wird.
 \end{itemize}
 \noindent
-Zusammenfassend lässt sich sagen, dass Rusts Fehlerbehandlung einen entscheidenden Beitrag zur Sicherheit und Zuverlässigkeit von Software leistet. Durch die explizite Behandlung von Fehlern und die Vermeidung von Ausnahmen können viele typische Fehlerquellen eliminiert werden.
 

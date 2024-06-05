@@ -11,7 +11,7 @@ Dies verhindert Datenrennen (Data Races) und Speicherfehler.
 \subsection{Copy-Typen}
 Copy-Typen sind einfache Datentypen, die eine bitweise Kopie beim Zuweisen erstellen. Primitive Typen wie \texttt{i32} sind Beispiele dafür.
 
-\begin{lstlisting}[language=Rust, caption=Copy-Typen Beispiel]
+\begin{lstlisting}[language=Rust, caption=Copy-Typen]
 pub fn copy_type() 
 {
     let i1 = 32;
@@ -23,7 +23,7 @@ pub fn copy_type()
 \noindent
 Bei der Besitzübertragung wird der Besitz eines Datenobjekts von einer Variablen auf eine andere übertragen, was bedeutet, dass die ursprüngliche Variable nicht mehr auf das Objekt zugreifen kann.
 
-\begin{lstlisting}[language=Rust, caption=Unveränderliche Ausleihe Beispiel]
+\begin{lstlisting}[language=Rust, caption=Unveränderliche Ausleihe]
 pub fn transfer_ownership() {
     let s1 = String::from("Hello");
     // Ownership of the string is transferred from s1 to s2
@@ -40,7 +40,7 @@ pub fn transfer_ownership() {
 \subsection{Ausleihe}
 Ausleihe ermöglicht es, dass eine Variable auf die Daten einer anderen Variable zugreift, ohne deren Besitzer zu ändern. Dies kann entweder als unveränderliche oder veränderliche Referenz erfolgen.
 
-\begin{lstlisting}[language=Rust, caption=Unveränderliche Ausleihe Beispiel]
+\begin{lstlisting}[language=Rust, caption=Unveränderliche Ausleihe]
 pub fn borrowing() {
     let s1 = String::from("Hello");
     // s2 is a reference to s1, s1 is borrowed
@@ -56,7 +56,7 @@ pub fn borrowing() {
 \subsection{Veränderliche Referenzen}
 Veränderliche Referenzen ermöglichen das Ändern der Daten, auf die sie zeigen, jedoch kann zu einem Zeitpunkt nur eine veränderliche Referenz existieren.
 
-\begin{lstlisting}[language=Rust, caption=Veränderliche Referenz Beispiel]
+\begin{lstlisting}[language=Rust, caption=Veränderliche Referenz]
 pub fn mut_reference() {
     let mut s1 = String::from("Hello");
     // s2 is a mutable reference to s1
@@ -79,9 +79,9 @@ Während primitive Typen kopiert werden, müssen komplexe Typen wie Strukturen e
 Dies liegt daran, dass primitive Typen wie Ganzzahlen oder boolesche Werte eine feste, geringe Größe haben und direkt auf dem Stack gespeichert werden, wodurch das Kopieren effizient und unkompliziert ist. 
 Komplexe Typen hingegen, wie Strukturen oder Vektoren, können größere und dynamische Daten enthalten, die auf dem Heap gespeichert werden. 
 Das einfache Kopieren eines solchen komplexen Typs würde nur eine flache Kopie erstellen, die Referenzen auf dieselben Speicheradressen enthält. 
-Um diese Problematik zu vermeiden und eine echte, tiefe Kopie zu erzeugen, muss die \texttt{Clone}-Trait implementiert und die \texttt{clone}-Methode aufgerufen werden.
+Um diese Problematik zu vermeiden und eine echte, tiefe Kopie zu erzeugen, muss die \texttt{Clone}-Trait implementiert und die \texttt{clone}-Methode aufgerufen werden \cite{rust_clone} \cite{feltzman2023}.
 
-\begin{lstlisting}[language=Rust, caption=Kopieren und Klonen von Strukturen Beispiel]
+\begin{lstlisting}[language=Rust, caption=Kopieren und Klonen von Strukturen]
 #[derive(Debug, Clone)]
 struct Book {
     title: String,

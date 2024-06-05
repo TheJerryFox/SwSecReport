@@ -24,7 +24,7 @@ Dies funktioniert reibungslos mit Rusts Ownership- und Borrowing-System, da \tex
 
 Hier ist ein Beispiel, das zeigt, wie man in Rust sicher Threads erstellt, die gemeinsam einen Zähler erhöhen:
 
-\begin{lstlisting}[language=Rust, caption=Sicheres Erstellen von Threads mit Rust]
+\begin{lstlisting}[language=Rust, caption=Sicheres Erstellen von Threads ]
 use std::sync::{Arc, Mutex};
 use std::thread;
 use std::time::Duration;
@@ -72,7 +72,7 @@ Die Verwendung von \texttt{Arc<Mutex<i32>} stellt sicher, dass nur ein Thread gl
 \\
 Zum Vergleich zeigt das folgende Beispiel, wie man es \emph{nicht} machen sollte. Es führt zu einem Kompilierfehler. 
 
-\begin{lstlisting}[language=Rust, caption=Unsicheres Erstellen von Threads in Rust]
+\begin{lstlisting}[language=Rust, caption=Unsicheres Erstellen von Threads]
 pub fn how_not_to_create_increment_threads(){
     let mut counter = 0;
     // need to use a reference 
@@ -117,8 +117,6 @@ Die Sicherheitsvorteile von Rusts Ansatz zur Nebenläufigkeit sind erheblich:
 
 \begin{itemize}
 \item \textbf{Verhinderung von Datenrennen:} Durch die Verwendung von \texttt{Arc} und \texttt{Mutex} stellt Rust sicher, dass Datenrennen schon zur Kompilierzeit ausgeschlossen werden.
-\item \textbf{Explizite Synchronisation:} Rust erfordert, dass alle Synchronisationspunkte explizit definiert werden.
-\item \textbf{Hohe Leistung:} Trotz der zusätzlichen Sicherheit bietet Rust eine hohe Leistung, da es unnötige Synchronisationskosten vermeidet.
 \end{itemize}
 \noindent
 

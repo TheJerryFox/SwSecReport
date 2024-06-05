@@ -1,12 +1,12 @@
 \chapter{Zero-Cost-Abstraktionen}
 
 Zero-Cost-Abstraktionen sind ein zentrales Konzept in Rust, das es ermöglicht, hohe Abstraktionen zu verwenden, ohne die Laufzeit des Programms zu beeinträchtigen. 
-Dies bedeutet, dass der Overhead, der durch die Abstraktionen entsteht, zur Kompilierzeit eliminiert wird, sodass der generierte Maschinencode genauso effizient ist wie handgeschriebener Low-Level-Code.
+Dies bedeutet, dass der Overhead, der durch die Abstraktionen entsteht, zur Kompilierzeit eliminiert wird, sodass der generierte Maschinencode genauso effizient ist wie handgeschriebener Low-Level-Code \cite{sequeira2023}.
 
 \section{Theoretische Grundlagen}
 
 In vielen Programmiersprachen führen Abstraktionen zu einem gewissen Laufzeit-Overhead, sei es durch zusätzliche Funktionsaufrufe, Speicherallokationen oder andere Mechanismen.
-Rusts Zero-Cost-Abstraktionen gewährleisten, dass solche Abstraktionen zur Kompilierzeit aufgelöst werden, wodurch der generierte Code ähnlich speicher- und laufzeiteffizient bleibt wie bei direkter Implementierung.
+Rusts Zero-Cost-Abstraktionen gewährleisten, dass solche Abstraktionen zur Kompilierzeit aufgelöst werden, wodurch der generierte Code ähnlich speicher- und laufzeiteffizient bleibt wie bei direkter Implementierung \cite{haberman2014}.
 
 \section{Praktische Beispiele}
 
@@ -24,7 +24,7 @@ Hier sind einige Beispiele für Zero-Cost-Abstraktionen in Rust:
 Rust bietet leistungsstarke Iteratoren, die keine zusätzlichen Laufzeitkosten verursachen. 
 Hier ist ein Beispiel, das zeigt, wie man sicher durch einen Vektor iteriert:
 
-\begin{lstlisting}[language=Rust, caption=Iterator-Beispiel]
+\begin{lstlisting}[language=Rust, caption=Iterator]
 use std::sync::mpsc;
 use std::thread;
 
@@ -43,7 +43,7 @@ Ein solcher Iterator löst die Programmlogik von der Schleifenlogik, wodurch typ
 
 Message Passing ist eine sichere und effiziente Methode zur Kommunikation zwischen Threads, die in Rust ebenfalls ohne Laufzeitkosten implementiert ist:
 
-\begin{lstlisting}[language=Rust, caption=Message Passing Beispiel]
+\begin{lstlisting}[language=Rust, caption=Message Passing ]
 pub fn message_passing(){
     let (tx, rx) = mpsc::channel();
 
@@ -70,7 +70,7 @@ Trotzdem können Threads effektiv komunizieren und der Code bleibt lesbar.
 
 Der \texttt{Option} Typ wird verwendet, um mögliche Abwesenheit eines Wertes sicher zu handhaben. Hier ist ein Beispiel, wie man eine Division sicher durchführen kann:
 
-\begin{lstlisting}[language=Rust, caption=Option Typ Beispiel]
+\begin{lstlisting}[language=Rust, caption=Option Typ]
 pub fn option_type(){
     let dividend = 10;
     let divisor = 0;
@@ -97,7 +97,7 @@ Mittels \textit{match} kann geprüft werden ob ein Wert vorliegt und dementsprec
 
 Die \texttt{filter} Methode ermöglicht es, Elemente eines Iterators basierend auf einer Bedingung zu filtern, ohne zusätzlichen Laufzeitaufwand:
 
-\begin{lstlisting}[language=Rust, caption=Filter-Funktion Beispiel]
+\begin{lstlisting}[language=Rust, caption=Filter-Funktion]
 pub fn filter(){
     let numbers = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 

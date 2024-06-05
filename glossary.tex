@@ -15,4 +15,20 @@
     description={A condition in computing where a variable that exceeds its maximum value returns to its minimum value and continues incrementing. This often occurs in circular buffers or when dealing with fixed-size data types, causing the value to "wrap around" to the beginning.}
 }
 
+\newglossaryentry{panic}{
+    name={panic},
+    description={In der Programmiersprache Rust und anderen Programmiersprachen bezeichnet \textit{panic} eine Laufzeitausnahme, die auftritt, 
+    wenn das Programm auf einen schwerwiegenden Fehler stößt, von dem es sich nicht erholen kann. 
+    Ein panic führt in der Regel dazu, dass das Programm sofort abgebrochen wird und die Kontrolle an das Betriebssystem zurückgegeben wird. 
+    Dies unterscheidet sich von regulären Fehlern, die durch Rückgabewerte oder Ausnahmen behandelt werden können.
+    }
+}
+
+\newglossaryentry{exception}{
+    name={exception},
+    description={
+        Eine \textit{exception} (dt. Ausnahme) ist ein Mechanismus in vielen Programmiersprachen, der verwendet wird, um auf ungewöhnliche oder fehlerhafte Zustände während der Programmausführung zu reagieren. Ausnahmen treten auf, wenn ein Programm auf ein Problem stößt, das es nicht mit normalem Kontrollfluss handhaben kann, wie z.B. Division durch Null oder der Versuch, auf eine Datei zuzugreifen, die nicht existiert. Beim Auftreten einer Ausnahme wird der normale Ablauf des Programms unterbrochen und es wird ein spezieller Fehlerbehandlungsroutine aufgerufen.
+    }
+}
+
 \glsaddall
