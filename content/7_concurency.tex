@@ -18,7 +18,6 @@ Ein \texttt{Mutex} in Rust liefert einen \texttt{MutexGuard}, der den Zugriff au
 Durch die Kombination von \texttt{Arc} und \texttt{Mutex} wird sichergestellt, dass veränderliche Daten sicher zwischen mehreren Threads geteilt werden können. 
 \texttt{Arc} übernimmt das Zählen der Referenzen, während \texttt{Mutex} den exklusiven Zugriff auf die Daten garantiert. 
 Dies funktioniert reibungslos mit Rusts Ownership- und Borrowing-System, da \texttt{Arc} die Besitzrechte an den Daten teilt und \texttt{Mutex} den Zugriff kontrolliert, um Datenrennen zu vermeiden. 
-Durch das explizite Anfordern und Freigeben von Sperren mit \texttt{MutexGuard} bleibt der Code dennoch performancestark und sicher.
 
 \cleardoublepage
 \section{Praktische Beispiele}
@@ -69,9 +68,9 @@ pub fn create_increment_threads(){
 \end{lstlisting}
 \noindent
 In diesem Beispiel wird ein gemeinsamer Zähler von mehreren Threads erhöht. 
-Die Verwendung von \texttt{Arc<Mutex<i32>>} stellt sicher, dass nur ein Thread gleichzeitig auf den Zähler zugreifen kann, wodurch Datenrennen verhindert werden.\\
+Die Verwendung von \texttt{Arc<Mutex<i32>} stellt sicher, dass nur ein Thread gleichzeitig auf den Zähler zugreifen kann, wodurch Datenrennen verhindert werden.\\
 \\
-Zum Vergleich zeigt das folgende Beispiel, wie man es \emph{nicht} machen kann, es gibt einen compile error:
+Zum Vergleich zeigt das folgende Beispiel, wie man es \emph{nicht} machen sollte. Es führt zu einem Kompilierfehler. 
 
 \begin{lstlisting}[language=Rust, caption=Unsicheres Erstellen von Threads in Rust]
 pub fn how_not_to_create_increment_threads(){
@@ -117,9 +116,9 @@ Rusts Ansatz kombiniert die Leistungsvorteile von C++ mit der Sicherheit und Ein
 Die Sicherheitsvorteile von Rusts Ansatz zur Nebenläufigkeit sind erheblich:
 
 \begin{itemize}
-    \item \textbf{Verhinderung von Datenrennen:} Durch die Verwendung von \texttt{Arc} und \texttt{Mutex} stellt Rust sicher, dass Datenrassen auf kompilierbarem Weg verhindert werden.
-    \item \textbf{Explizite Synchronisation:} Rust erfordert, dass alle Synchronisationspunkte explizit definiert werden, was die Lesbarkeit und Wartbarkeit des Codes erhöht.
-    \item \textbf{Hohe Leistung:} Trotz der zusätzlichen Sicherheit bietet Rust eine hohe Leistung, da es unnötige Synchronisationskosten vermeidet.
+\item \textbf{Verhinderung von Datenrennen:} Durch die Verwendung von \texttt{Arc} und \texttt{Mutex} stellt Rust sicher, dass Datenrennen schon zur Kompilierzeit ausgeschlossen werden.
+\item \textbf{Explizite Synchronisation:} Rust erfordert, dass alle Synchronisationspunkte explizit definiert werden.
+\item \textbf{Hohe Leistung:} Trotz der zusätzlichen Sicherheit bietet Rust eine hohe Leistung, da es unnötige Synchronisationskosten vermeidet.
 \end{itemize}
 \noindent
 

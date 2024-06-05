@@ -1,16 +1,18 @@
-\newglossaryentry{library}
+\newglossaryentry{off-by-one}
 {
-    name={library},
-    description={A suite of reusable code inside of a programming language for software development}
+    name={off-by-one},
+    description={Ein Fehler in der Programmierung, bei dem eine Schleife oder ein Array um eine Einheit zu viel oder zu wenig iteriert oder indiziert wird, was oft zu unerwartetem Verhalten führt. Dies passiert häufig bei der Implementierung von Schleifen oder bei der Arbeit mit Indizes, wo die korrekte Anzahl der Iterationen oder die korrekten Grenzen leicht übersehen werden können}
 }
 
-
-\newglossaryentry{shell}
+\newglossaryentry{borrow-checker}
 {
-    name={shell},
-    description={Terminal of a Linux/Unix system for entering commands}
+    name={borrow checker},
+    description={Ein System in der Programmiersprache Rust, das zur Kompilierzeit überprüft, ob alle Speicherzugriffe sicher sind. Es stellt sicher, dass Daten nie gleichzeitig sowohl mutabel als auch immutabel geborgt werden, und dass keine doppelten mutablen Referenzen existieren, um Race Conditions und andere Speicherfehler zu verhindern}
 }
 
-\newacronym{tdp}{TDP}{Thermal Design Power}
+\newglossaryentry{wrap-around}{
+    name={wrap-around},
+    description={A condition in computing where a variable that exceeds its maximum value returns to its minimum value and continues incrementing. This often occurs in circular buffers or when dealing with fixed-size data types, causing the value to "wrap around" to the beginning.}
+}
 
 \glsaddall

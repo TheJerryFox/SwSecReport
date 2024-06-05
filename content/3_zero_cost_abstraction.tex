@@ -1,12 +1,12 @@
 \chapter{Zero-Cost-Abstraktionen}
 
-Zero-Cost-Abstraktionen sind ein zentrales Konzept in Rust, das es ermöglicht, hohe Abstraktionen zu verwenden, ohne die Laufzeitleistung zu beeinträchtigen. 
+Zero-Cost-Abstraktionen sind ein zentrales Konzept in Rust, das es ermöglicht, hohe Abstraktionen zu verwenden, ohne die Laufzeit des Programms zu beeinträchtigen. 
 Dies bedeutet, dass der Overhead, der durch die Abstraktionen entsteht, zur Kompilierzeit eliminiert wird, sodass der generierte Maschinencode genauso effizient ist wie handgeschriebener Low-Level-Code.
 
 \section{Theoretische Grundlagen}
 
 In vielen Programmiersprachen führen Abstraktionen zu einem gewissen Laufzeit-Overhead, sei es durch zusätzliche Funktionsaufrufe, Speicherallokationen oder andere Mechanismen.
-Rusts Zero-Cost-Abstraktionen gewährleisten, dass solche Abstraktionen zur Kompilierzeit aufgelöst werden, wodurch der generierte Code genauso effizient bleibt wie bei direkter Implementierung.
+Rusts Zero-Cost-Abstraktionen gewährleisten, dass solche Abstraktionen zur Kompilierzeit aufgelöst werden, wodurch der generierte Code ähnlich speicher- und laufzeiteffizient bleibt wie bei direkter Implementierung.
 
 \section{Praktische Beispiele}
 
@@ -14,8 +14,8 @@ Hier sind einige Beispiele für Zero-Cost-Abstraktionen in Rust:
 
 \begin{itemize}
     \item Iteratoren
-    \item Message Passing
-    \item Der \texttt{Option} Typ
+    \item Nachrichtenübermittlung
+    \item Der Option-Typ
     \item Filter-Funktion
 \end{itemize}
 
@@ -37,7 +37,7 @@ pub fn iterator(){
     }
 }
 \end{lstlisting}
-Ein solcher Iterator löst die Programmlogik von der Schleifenlogik, wodurch typische fehler wie \textit{off by one} und daraus resultierende falsche array indexierung vermieden werden.
+Ein solcher Iterator löst die Programmlogik von der Schleifenlogik, wodurch typische Fehler wie \textit{\gls{off-by-one}} und daraus resultierende falsche Array-Indexierung vermieden werden.
 \cleardoublepage
 \subsection{Message Passing}
 
@@ -66,7 +66,7 @@ pub fn message_passing(){
 \end{lstlisting}
 Durch eine solche einfach Abstraktion können Datenrennen zwischen threads vermieden werden.
 Trotzdem können Threads effektiv komunizieren und der Code bleibt lesbar.
-\subsection{\texttt{Option} Typ}
+\subsection{Option Typ}
 
 Der \texttt{Option} Typ wird verwendet, um mögliche Abwesenheit eines Wertes sicher zu handhaben. Hier ist ein Beispiel, wie man eine Division sicher durchführen kann:
 

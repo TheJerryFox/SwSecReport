@@ -3,7 +3,7 @@
 \section{Theoretische Grundlagen}
 Das Lebensdauer-Tracking ist ein zentrales Konzept in Rust, das dazu beiträgt, Speicherfehler zu verhindern. 
 Lebensdauern (\emph{lifetimes}) sind eine Art von generischen Parametern, die sicherstellen, dass Referenzen nur so lange gültig sind, wie es der Kontext erfordert. 
-Dies verhindert das Auftreten von Dangling References und ermöglicht eine präzise Kontrolle über die Lebensdauer von Daten im Speicher.\\
+Dies verhindert das Auftreten von hängenden Referenzen und ermöglicht eine präzise Kontrolle über die Lebensdauer von Daten im Speicher.\\
 \\
 Rust verwendet Lebensdauern, um sicherzustellen, dass Referenzen nicht auf ungültige Daten zeigen. Eine Lebensdauer beschreibt den Gültigkeitsbereich einer Referenz. 
 Rust prüft zur Kompilierzeit, dass alle Referenzen gültig sind, wodurch viele gängige Speicherfehler verhindert werden.
@@ -37,7 +37,7 @@ Beide Eingabereferenzen und die Rückgabereferenz haben dieselbe Lebensdauer \te
 Das bedeutet, dass die Rückgabereferenz nur so lange gültig ist, wie beide Eingabereferenzen gültig sind.\\
 \\
 Die Angabe der Lebensdauer ist notwendig, da der Compiler ohne diese Annotation nicht in der Lage ist, die Beziehung zwischen den Lebensdauern der Eingabereferenzen und der Rückgabereferenz zu erkennen. 
-Rusts Borrow-Checker kann ohne die explizite Angabe der Lebensdauer \texttt{'a} nicht sicherstellen, dass die Rückgabe einer der Eingabereferenzen keine ungültigen Referenzen erzeugt. 
+Rusts \textit{\gls{borrow-checker}} kann ohne die explizite Angabe der Lebensdauer \texttt{'a} nicht sicherstellen, dass die Rückgabe einer der Eingabereferenzen keine ungültigen Referenzen erzeugt. 
 Die Lebensdauer \texttt{'a} stellt sicher, dass die Rückgabereferenz nur so lange gültig ist, wie beide Eingabereferenzen gültig sind, wodurch Speicherfehler vermieden werden.
 
 \section{Vergleich mit anderen Programmiersprachen}

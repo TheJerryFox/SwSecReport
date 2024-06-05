@@ -73,7 +73,7 @@ Rusts Ansatz zur Fehlerbehandlung bietet mehrere Sicherheitsvorteile:
 \begin{itemize}
     \item \textbf{Vorhersehbarkeit}: Da Fehler explizit behandelt werden müssen, ist das Verhalten des Programms vorhersehbarer.
     \item \textbf{Vermeidung von Panics}: Durch die Verwendung von \texttt{Result} und \texttt{Option} können viele Panics vermieden werden, was die Stabilität des Programms erhöht.
-    \item \textbf{Robustheit}: Der Code wird robuster, da alle möglichen Fehlerfälle berücksichtigt und behandelt werden.
+    \item \textbf{Robustheit}: Der Code wird robuster, da alle möglichen Fehlerfälle berücksichtigt und behandelt werden, sofern das unsichere \texttt{unwrap()} vermieden wird.
 \end{itemize}
 \noindent
 Zusammenfassend lässt sich sagen, dass Rusts Fehlerbehandlung einen entscheidenden Beitrag zur Sicherheit und Zuverlässigkeit von Software leistet. Durch die explizite Behandlung von Fehlern und die Vermeidung von Ausnahmen können viele typische Fehlerquellen eliminiert werden.
