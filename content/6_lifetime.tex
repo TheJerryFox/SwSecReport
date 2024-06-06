@@ -1,14 +1,15 @@
 \chapter{Lebensdauer-Tracking}
 
 Das Lebensdauer-Tracking ist ein zentrales Konzept in Rust, das dazu beiträgt, Speicherfehler zu verhindern. 
-Lebensdauern (\emph{lifetimes}) sind eine Art von generischen Parametern, die sicherstellen, dass Referenzen nur so lange gültig sind, wie es der Kontext erfordert. 
+Lebensdauern (lifetimes) sind eine Art von generischen Parametern, die sicherstellen, dass Referenzen nur so lange gültig sind, wie es der Kontext erfordert. 
 Dies verhindert das Auftreten von hängenden Referenzen und ermöglicht eine präzise Kontrolle über die Lebensdauer von Daten im Speicher.\\
 \\
-Rust verwendet Lebensdauern, um sicherzustellen, dass Referenzen nicht auf ungültige Daten zeigen. 
+Rust verwendet Lebensdauern, um sicherzustellen, dass Referenzen nicht auf ungültige Daten zeigen.
 Eine Lebensdauer beschreibt den Gültigkeitsbereich einer Referenz. 
-Rust prüft zur Kompilierzeit, dass alle Referenzen gültig sind.
-In einfachen Beispielen kann Rust die Lebensdauer selbst ableiten.
-Bei komplizierteren strukturen mit Referenzen muss der Programierer die Lebensezti angeben.
+Rust prüft zur Kompilierzeit, dass alle Referenzen gültig sind. 
+In einfachen Beispielen kann Rust die Lebensdauer selbst ableiten. 
+Bei komplizierteren Strukturen mit Referenzen muss der Programmierer die Lebensdauer angeben.
+
 \begin{lstlisting}[language=Rust, caption={Expliziete lifetime}, label=list:lifetime]
 pub fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
     if x.len() > y.len() {
@@ -19,7 +20,7 @@ pub fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
 }
 \end{lstlisting}
 \noindent
-Beide Eingabereferenzen und die Rückgabereferenz, in Beispiel \ref{list:lifetime}, haben dieselbe Lebensdauer \texttt{'a}. 
+Beide Eingabereferenzen und die Rückgabereferenz im Beispiel \ref{list:lifetime} haben dieselbe Lebensdauer \texttt{'a}. 
 Das bedeutet, dass die Rückgabereferenz nur so lange gültig ist, wie beide Eingabereferenzen gültig sind.\\
 \\
 Die Angabe der Lebensdauer ist notwendig, da der Compiler ohne diese Annotation nicht in der Lage ist, die Beziehung zwischen den Lebensdauern der Eingabereferenzen und der Rückgabereferenz zu erkennen. 

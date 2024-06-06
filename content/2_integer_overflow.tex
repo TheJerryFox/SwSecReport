@@ -1,4 +1,4 @@
-\chapter{Integer-Überlauf}
+ \chapter{Integer-Überlauf}
 
 Der Integer-Überlauf ist ein häufiges Problem in vielen Programmiersprachen, das zu unerwartetem Verhalten und Sicherheitslücken führen kann. 
 Ein Integer-Überlauf tritt auf, wenn eine arithmetische Operation das Maximum (oder Minimum) des für den Datentyp zulässigen Wertebereichs überschreitet. 
@@ -42,8 +42,8 @@ pub fn overflow(){
 Wie in Beispiel \ref{list:overflow_example} zu sehen, bietet Rust mehrere Möglichkeiten, Integer-Überläufe sicher zu handhaben:
 
 \begin{itemize}
-    \item \textbf{Überprüfte Addition (checked addition)}: Gibt \texttt{None} zurück, wenn ein Überlauf auftritt.
-    \item \textbf{Wrappende Addition (wrapping addition)}: Wickelt den Wert bei Überlauf um, entsprechend dem Wertebereich des Datentyps.
-    \item \textbf{Sättigende Addition (saturating addition)}: Begrenzte den Wert auf den maximalen oder minimalen Wert des Datentyps bei Überlauf.
-    \item \textbf{Überlaufende Addition (overflowing addition)}: Gibt ein \textit{\gls{tupel}} zurück, bestehend aus dem Ergebnis der Addition und einem booleschen Wert, der anzeigt, ob ein Überlauf aufgetreten ist.
+\item \textbf{Überprüfte Addition (checked addition)}: Gibt \texttt{None} zurück, wenn ein Überlauf auftritt.
+\item \textbf{Wrappende Addition (wrapping addition)}: Wickelt den Wert bei Überlauf um, entsprechend dem Wertebereich des Datentyps.
+\item \textbf{Sättigende Addition (saturating addition)}: Begrenzt den Wert auf den maximalen oder minimalen Wert des Datentyps bei Überlauf.
+\item \textbf{Überlaufende Addition (overflowing addition)}: Gibt ein \textit{\gls{tupel}} zurück, bestehend aus dem Ergebnis der Addition und einem booleschen Wert, der anzeigt, ob ein Überlauf aufgetreten ist.
 \end{itemize}

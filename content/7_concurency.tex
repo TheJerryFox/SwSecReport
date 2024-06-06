@@ -1,7 +1,7 @@
 \chapter{Sichere Nebenläufigkeit}
 
 Nebenläufigkeit ist ein wesentlicher Aspekt moderner Softwareentwicklung, insbesondere bei der Entwicklung von Systemen, die eine hohe Leistung und Reaktionsfähigkeit erfordern. 
-Jedoch birgt die Nebenläufigkeit zahlreiche Herausforderungen, insbesondere im Hinblick auf die Sicherheit und Korrektheit des Codes.
+Jedoch birgt die Nebenläufigkeit zahlreiche Herausforderungen, insbesondere im Hinblick auf die Sicherheit und Korrektheit des Codes. 
 Datenrennen sind ein häufiges Problem, das auftritt, wenn mehrere Threads gleichzeitig auf dieselben Daten zugreifen und diese ändern, ohne dass die Zugriffe korrekt synchronisiert sind.\\ 
 \\
 Rust bietet einen Ansatz zur sicheren Nebenläufigkeit, indem es die Konzepte der Besitzrechte (Ownership) und des Ausleihens (Borrowing) auf Threads anwendet. 
@@ -9,10 +9,9 @@ Dies wird durch die Einbindung von Mechanismen wie \texttt{Arc} (Atomic Referenc
 \\
 \texttt{Arc} (Atomic Reference Counting) ist ein Thread-sicherer Referenzzähler, der es ermöglicht, dass mehrere Threads gleichzeitig Besitz an den gleichen Daten haben, indem er die Daten im Heap speichert und den Zähler atomar verwaltet. \\
 \\
-\texttt{Mutex} (Mutual Exclusion) ist ein Synchronisationsprimitiv, das sicherstellt, dass nur ein Thread zu einem bestimmten Zeitpunkt auf die geschützten Daten zugreifen kann.\\
+\texttt{Mutex} (Mutual Exclusion) ist ein Synchronisationsprimitiv, das sicherstellt, dass nur ein Thread zu einem bestimmten Zeitpunkt auf die geschützten Daten zugreifen kann\\
 \\
-\texttt{Arc} übernimmt das Zählen der Referenzen, während \texttt{Mutex} den exklusiven Zugriff auf die Daten garantiert. 
-Dies funktioniert reibungslos mit Rusts Ownership- und Borrowing-System, da \texttt{Arc} die Besitzrechte an den Daten teilt und \texttt{Mutex} den Zugriff kontrolliert, um Datenrennen zu vermeiden. 
+\texttt{Arc} übernimmt das Zählen der Referenzen, während \texttt{Mutex} den exklusiven Zugriff auf die Daten garantiert. Dies funktioniert reibungslos mit Rusts Ownership- und Borrowing-System, da \texttt{Arc} die Besitzrechte an den Daten teilt und \texttt{Mutex} den Zugriff kontrolliert, um Datenrennen zu vermeiden.
 \cleardoublepage
 \begin{lstlisting}[language=Rust, caption=Sicheres Erstellen von Threads ]
 use std::sync::{Arc, Mutex};
@@ -58,4 +57,4 @@ pub fn create_increment_threads(){
 \end{lstlisting}
 \noindent
 In diesem Beispiel wird ein gemeinsamer Zähler von mehreren Threads erhöht. 
-Die Verwendung von \texttt{Arc<Mutex<i32>} stellt sicher, dass nur ein Thread gleichzeitig auf den Zähler zugreifen kann, wodurch Datenrennen verhindert werden.
+Die Verwendung von \texttt{Arc<Mutex<i32>}, stellt sicher, dass nur ein Thread gleichzeitig auf den Zähler zugreifen kann, wodurch Datenrennen verhindert werden.

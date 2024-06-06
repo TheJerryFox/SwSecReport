@@ -2,11 +2,10 @@
 
 In Rust sind Besitz und Ausleihe grundlegende Konzepte, die zur Gewährleistung der Speicher- und Datensicherheit beitragen. 
 Das Besitzmodell sorgt dafür, dass es stets einen eindeutigen Besitzer eines Datenobjekts gibt, während das Ausleihmodell ermöglicht, dass andere Teile des Codes temporär auf diese Daten zugreifen können, ohne deren Besitzer zu ändern. 
-Dies verhindert Datenrennen (Data Races) und Speicherfehler.
+Dies verhindert Datenrennen (\textit{\glspl{data-race}}) und Speicherfehler.
 
 \section{Copy-Typen}
-Copy-Typen sind einfache Datentypen, die eine bitweise Kopie beim Zuweisen erstellen. 
-Primitive Typen wie \texttt{i32} sind Beispiele dafür.
+Copy-Typen sind einfache Datentypen, die eine bitweise Kopie beim Zuweisen erstellen. Primitive Typen wie \texttt{i32} sind Beispiele dafür.
 
 \begin{lstlisting}[language=Rust, caption=Copy-Typen]
 pub fn copy_type() 
@@ -19,7 +18,7 @@ pub fn copy_type()
 \end{lstlisting}
 \noindent
 Bei der Besitzübertragung wird der Besitz eines Datenobjekts von einer Variablen auf eine andere übertragen, was bedeutet, dass die ursprüngliche Variable nicht mehr auf das Objekt zugreifen kann.
-Dies ist der fall bei komplexen Typen wie \texttt{String}.
+Dies ist der Fall bei komplexen Typen wie \texttt{String}.
 
 \begin{lstlisting}[language=Rust, caption=Unveränderliche Ausleihe]
 pub fn transfer_ownership() {
@@ -51,7 +50,7 @@ pub fn borrowing() {
 }
 \end{lstlisting}
 \noindent
-Veränderliche Referenzen ermöglichen das Ändern der Daten, auf die sie zeigen, jedoch kann zu einem Zeitpunkt nur eine veränderliche Referenz existieren.
+Veränderliche Referenzen ermöglichen das Ändern der Daten, auf die sie zeigen. Allerdings kann zu einem Zeitpunkt nur eine veränderliche Referenz existieren.
 
 \begin{lstlisting}[language=Rust, caption=Veränderliche Referenz]
 pub fn mut_reference() {
@@ -70,4 +69,5 @@ pub fn mut_reference() {
 }
 \end{lstlisting}
 \noindent
-Im Gegensatz zu Rust erlauben viele andere Programmiersprachen wie C und C++ eine flexiblere, aber auch unsicherere Speicherverwaltung. In diesen Sprachen kann leicht unbeabsichtigter Code entstehen, der zu Speicherlecks oder Datenrennen führt da hier speicherplatz manuel allokiert werden muss und sich manuel um dessen freigabe gekümmert werden muss. Rusts strikte Regeln für Besitz und Ausleihe verhindern solche Probleme, indem sie sicherstellen, dass es immer geregelt ist, wer für den Speicher eines Datenobjekts verantwortlich ist und wie darauf zugegriffen werden kann.
+Im Gegensatz zu Rust erlauben viele andere Programmiersprachen wie C und C++ eine flexiblere, aber auch unsicherere Speicherverwaltung. 
+In diesen Sprachen kann leicht unbeabsichtigter Code entstehen, der zu Speicherlecks oder Datenrennen führt, da hier Speicherplatz manuell allokiert und dessen Freigabe manuell verwaltet werden muss. Rusts strikte Regeln für Besitz und Ausleihe verhindern solche Probleme, indem sie sicherstellen, dass immer geregelt ist, wer für den Speicher eines Datenobjekts verantwortlich ist und wie darauf zugegriffen werden kann.

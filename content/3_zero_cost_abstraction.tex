@@ -1,11 +1,11 @@
 \chapter{Zero-Cost-Abstraktionen}
 
-Zero-Cost-Abstraktionen sind ein zentrales Konzept in Rust, das es ermöglicht, hohe Abstraktionen zu verwenden, ohne die Laufzeit des Programms zu beeinträchtigen.
-Dies bedeutet, dass der Overhead, der durch die Abstraktionen entsteht, zur Kompilierzeit eliminiert wird, sodass der generierte Maschinencode ähnlich effizient ist wie handgeschriebener Low-Level-Code \cite{sequeira2023}.
-In anderen Sprachen kann dies zu eimem Laufzeit-Overhead führen \cite{haberman2014}.
+Zero-Cost-Abstraktionen sind ein zentrales Konzept in Rust, das es ermöglicht, hohe Abstraktionen zu verwenden, ohne die Laufzeit des Programms zu beeinträchtigen. 
+Dies bedeutet, dass der Overhead, der durch die Abstraktionen entsteht, zur Kompilierzeit eliminiert wird, sodass der generierte Maschinencode ähnlich effizient ist wie handgeschriebener Low-Level-Code \cite{sequeira2023}. 
+In anderen Sprachen kann dies zu einem Laufzeit-Overhead führen \cite{haberman2014}.
 
 \section{Iteratoren}
-Iteratoren helfen um über eine menge von elementen zu Iterieren und ersetzen eine expliziete schleife.
+Iteratoren helfen, um über eine Menge von Elementen zu iterieren und ersetzen eine explizite Schleife.
 \begin{lstlisting}[language=Rust, caption=Iterator]
 use std::sync::mpsc;
 use std::thread;
@@ -19,11 +19,11 @@ pub fn iterator(){
     }
 }
 \end{lstlisting}
-Ein solcher Iterator löst die Programmlogik von der Schleifenlogik, wodurch typische Fehler wie \textit{\gls{off-by-one}} und daraus resultierende z.B. falsche Array-Indexierung (Buffer-oferlow) vermieden werden.
+Ein solcher Iterator löst die Programmlogik von der Schleifenlogik, wodurch typische Fehler wie \textit{\gls{off-by-one}} und daraus resultierende, z.B. falsche Array-Indexierung (Buffer-Overflow), vermieden werden.
 \cleardoublepage
 \section{Message Passing}
 
-Message Passing ist eine sichere und effiziente Methode zur Kommunikation zwischen Threads, die in Rust ebenfalls ohne Laufzeitkosten implementiert ist:
+Message Passing ist eine sichere und effiziente Methode zur Kommunikation zwischen Threads.
 
 \begin{lstlisting}[language=Rust, caption=Message Passing ]
 pub fn message_passing(){
@@ -46,12 +46,12 @@ pub fn message_passing(){
     receiver_thread.join().unwrap();
 }
 \end{lstlisting}
-Durch eine solche einfach Abstraktion können Datenrennen zwischen threads vermieden werden.
-Trotzdem können Threads effektiv komunizieren und der Code bleibt lesbar.
+Durch eine solche einfache Abstraktion können Datenrennen zwischen Threads vermieden werden. 
+Trotzdem können Threads effektiv kommunizieren und der Code bleibt lesbar.
 \cleardoublepage
 \section{Option Typ}
 
-Der \texttt{Option} Typ wird verwendet, um mögliche Abwesenheit eines Wertes sicher zu handhaben. Hier ist ein Beispiel, wie man eine Division sicher durchführen kann:
+Der \texttt{Option}-Typ wird verwendet, um die mögliche Abwesenheit eines Wertes sicher zu handhaben. Hier ist ein Beispiel, wie man eine Division sicher durchführen kann:
 
 \begin{lstlisting}[language=Rust, caption=Option Typ]
 pub fn option_type(){
@@ -73,12 +73,11 @@ fn find_divisor(dividend: i32, divisor: i32) -> Option<i32> {
 }
 \end{lstlisting}
 \noindent
-Eine \texttt{Option} gibt entweder einen wert \texttt{Some} zurück oder einen \texttt{None} Wert.
-Mittels \texttt{match} kann geprüft werden ob ein Wert vorliegt und dementsprechend verarbeitet werden.
+Eine \texttt{Option} gibt entweder einen Wert \texttt{Some} zurück oder einen \texttt{None}-Wert. Mittels \texttt{match} kann geprüft werden, ob ein Wert vorliegt und dementsprechend verarbeitet werden.
 
 \section{Filter-Funktion}
 
-Die \texttt{filter} Methode ermöglicht es, Elemente eines Iterators basierend auf einer Bedingung zu filtern.
+Die \texttt{filter}-Methode ermöglicht es, Elemente eines Iterators basierend auf einer Bedingung zu filtern.
 
 \begin{lstlisting}[language=Rust, caption=Filter-Funktion]
 pub fn filter(){
@@ -92,6 +91,6 @@ pub fn filter(){
     println!("Even numbers: {:?}", even_numbers);
 }
 \end{lstlisting}
-Ein Filter auf einem Iterator seperiert zusätzlich die Filter logik.
-An dieser stelle könnte auch eine Methode verwendet werden.
-Dies sorgt für besser lesbaren Code und beugt logik fehlern vor (\textit{\gls{off-by-one}} etc.).
+Ein Filter auf einem Iterator separiert zusätzlich die Filterlogik. 
+An dieser Stelle könnte auch eine Methode verwendet werden. 
+Dies sorgt für besser lesbaren Code und beugt Logikfehlern vor (\textit{\gls{off-by-one}} etc.).
