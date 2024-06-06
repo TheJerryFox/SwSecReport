@@ -10,10 +10,12 @@
     description={Ein System in der Programmiersprache Rust, das zur Kompilierzeit überprüft, ob alle Speicherzugriffe sicher sind. Es stellt sicher, dass Daten nie gleichzeitig sowohl mutabel als auch immutabel geborgt werden, und dass keine doppelten mutablen Referenzen existieren, um Race Conditions und andere Speicherfehler zu verhindern}
 }
 
+
 \newglossaryentry{wrap-around}{
-    name={wrap-around},
-    description={A condition in computing where a variable that exceeds its maximum value returns to its minimum value and continues incrementing. This often occurs in circular buffers or when dealing with fixed-size data types, causing the value to "wrap around" to the beginning.}
+  name={Wrap-around},
+  description={Der Begriff "Wrap-around" beschreibt ein Phänomen, bei dem ein numerischer Wert, der seinen maximal oder minimal zulässigen Wert erreicht, auf den gegenüberliegenden Extremwert zurückgesetzt wird. Dies tritt häufig in der Computerprogrammierung auf, insbesondere bei der Arbeit mit beschränkten Datentypen wie Ganzzahlen. Ein Wrap-around kann zu Fehlern führen, wenn es nicht ordnungsgemäß gehandhabt wird.}
 }
+
 
 \newglossaryentry{panic}{
     name={panic},
@@ -30,5 +32,16 @@
         Eine \textit{exception} (dt. Ausnahme) ist ein Mechanismus in vielen Programmiersprachen, der verwendet wird, um auf ungewöhnliche oder fehlerhafte Zustände während der Programmausführung zu reagieren. Ausnahmen treten auf, wenn ein Programm auf ein Problem stößt, das es nicht mit normalem Kontrollfluss handhaben kann, wie z.B. Division durch Null oder der Versuch, auf eine Datei zuzugreifen, die nicht existiert. Beim Auftreten einer Ausnahme wird der normale Ablauf des Programms unterbrochen und es wird ein spezieller Fehlerbehandlungsroutine aufgerufen.
     }
 }
+
+\newglossaryentry{data-race}{
+  name={Datenrennen},
+  description={Ein Datenrennen tritt auf, wenn zwei oder mehr Threads in einem Computerprogramm gleichzeitig auf dieselbe Speicherstelle zugreifen, und mindestens einer der Zugriffe schreibend erfolgt, ohne dass die Zugriffe synchronisiert werden. Dies kann zu unerwarteten und fehlerhaften Verhaltensweisen führen, da die Reihenfolge der Zugriffe nicht garantiert ist und das Ergebnis von der Timing-Synchronisation der Threads abhängt.}
+}
+
+\newglossaryentry{tupel}{
+  name={Tupel},
+  description={Ein Tupel ist eine geordnete Liste von Elementen, die in der Informatik häufig verwendet wird, um eine feste Anzahl von Werten zu speichern, die zu einer Einheit zusammengefasst sind. Die Elemente eines Tupels können unterschiedliche Datentypen haben. Tupel sind unveränderlich, was bedeutet, dass ihre Inhalte nach der Erstellung nicht mehr geändert werden können.}
+}
+
 
 \glsaddall

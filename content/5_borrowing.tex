@@ -114,7 +114,7 @@ pub fn copy_move_clone_book() {
 
 \section{Vergleiche zu anderen Programmiersprachen}
 
-Im Gegensatz zu Rust erlauben viele andere Programmiersprachen wie C und C++ eine flexiblere, aber auch unsicherere Speicherverwaltung. In diesen Sprachen kann leicht unbeabsichtigter Code entstehen, der zu Speicherlecks oder Datenrennen führt. Rusts strikte Regeln für Besitz und Ausleihe verhindern solche Probleme, indem sie sicherstellen, dass es immer klar ist, wer für den Speicher eines Datenobjekts verantwortlich ist und wie darauf zugegriffen werden kann.
+Im Gegensatz zu Rust erlauben viele andere Programmiersprachen wie C und C++ eine flexiblere, aber auch unsicherere Speicherverwaltung. In diesen Sprachen kann leicht unbeabsichtigter Code entstehen, der zu Speicherlecks oder Datenrennen führt da hier speicherplatz manuel allokiert werden muss und sich manuel um dessen freigabe gekümmert werden muss. Rusts strikte Regeln für Besitz und Ausleihe verhindern solche Probleme, indem sie sicherstellen, dass es immer klar ist, wer für den Speicher eines Datenobjekts verantwortlich ist und wie darauf zugegriffen werden kann.
 
 \section{Sicherheitsvorteile der Besitz- und Ausleihregeln}
 
@@ -123,5 +123,5 @@ Die strengen Regeln für Besitz und Ausleihe in Rust bieten mehrere Sicherheitsv
 \begin{itemize}
     \item \textbf{Vermeidung von Datenrennen}: Da immer nur eine veränderliche Referenz zu einem Zeitpunkt erlaubt ist, sind Datenrennen ausgeschlossen.
     \item \textbf{Speichersicherheit}: Rust verhindert durch seine Besitzregeln, dass Daten mehrfach freigegeben oder auf ungültigen Speicher zugegriffen wird.
-    \item \textbf{Klarheit und Sicherheit}: Der Compiler erzwingt klare Regeln für den Zugriff auf Daten, was zu sichererem und leichter verständlichem Code führt.
+    \item \textbf{Klarheit und Sicherheit}: Der Compiler erzwingt klare Regeln für den Zugriff auf Daten.
 \end{itemize}

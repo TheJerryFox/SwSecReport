@@ -1,7 +1,7 @@
 \chapter{Zero-Cost-Abstraktionen}
 
 Zero-Cost-Abstraktionen sind ein zentrales Konzept in Rust, das es ermöglicht, hohe Abstraktionen zu verwenden, ohne die Laufzeit des Programms zu beeinträchtigen. 
-Dies bedeutet, dass der Overhead, der durch die Abstraktionen entsteht, zur Kompilierzeit eliminiert wird, sodass der generierte Maschinencode genauso effizient ist wie handgeschriebener Low-Level-Code \cite{sequeira2023}.
+Dies bedeutet, dass der Overhead, der durch die Abstraktionen entsteht, zur Kompilierzeit eliminiert wird, sodass der generierte Maschinencode ähnlich effizient ist wie handgeschriebener Low-Level-Code \cite{sequeira2023}.
 
 \section{Theoretische Grundlagen}
 
@@ -90,8 +90,8 @@ fn find_divisor(dividend: i32, divisor: i32) -> Option<i32> {
 }
 \end{lstlisting}
 \noindent
-Ein \textit{Option} gibt entweder einen wert \textit{Some} zurück oder einen \textit{None} Wert.
-Mittels \textit{match} kann geprüft werden ob ein Wert vorliegt und dementsprechend verarbeitet werden.
+Eine \texttt{Option} gibt entweder einen wert \texttt{Some} zurück oder einen \texttt{None} Wert.
+Mittels \texttt{match} kann geprüft werden ob ein Wert vorliegt und dementsprechend verarbeitet werden.
 
 \subsection{Filter-Funktion}
 
@@ -120,9 +120,6 @@ Rust eliminiert diese Kosten, indem es die Abstraktionen zur Kompilierzeit aufl�
 
 \section{Sicherheitsvorteile der Zero-Cost-Abstraktionen}
 
-Die Verwendung von Zero-Cost-Abstraktionen in Rust trägt erheblich zur Sicherheit des Codes bei, da sie:
-\begin{itemize}
-    \item Entwicklern ermöglichen, sichere und idiomatische Konstrukte zu verwenden, ohne sich um Leistungseinbußen sorgen zu müssen.
-    \item Fehler und Sicherheitslücken reduzieren, da die Abstraktionen sicher und effizient implementiert sind.
-    \item Den Code lesbarer und wartbarer machen, da Entwickler höhere Abstraktionslevel nutzen können, ohne auf Effizienz verzichten zu müssen.
-\end{itemize}
+Die Verwendung von Zero-Cost-Abstraktionen in Rust trägt zur Sicherheit des Codes bei.
+Vorimplementierte abstraktionen sind gut getested, machen den Code lesbarer, abstrahieren z.B. die iteration und verhindern so \textit{{\gls{off-by-one}}} Fehler.
+

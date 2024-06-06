@@ -58,7 +58,7 @@ Rust bietet mehrere Möglichkeiten, Integer-Überläufe sicher zu handhaben:
     \item \textbf{Überprüfte Addition (checked addition)}: Gibt \texttt{None} zurück, wenn ein Überlauf auftritt.
     \item \textbf{Wrappende Addition (wrapping addition)}: Wickelt den Wert bei Überlauf um, entsprechend dem Wertebereich des Datentyps.
     \item \textbf{Sättigende Addition (saturating addition)}: Begrenzte den Wert auf den maximalen oder minimalen Wert des Datentyps bei Überlauf.
-    \item \textbf{Überlaufende Addition (overflowing addition)}: Gibt ein Tupel zurück, bestehend aus dem Ergebnis der Addition und einem booleschen Wert, der anzeigt, ob ein Überlauf aufgetreten ist.
+    \item \textbf{Überlaufende Addition (overflowing addition)}: Gibt ein \textit{\gls{tupel}} zurück, bestehend aus dem Ergebnis der Addition und einem booleschen Wert, der anzeigt, ob ein Überlauf aufgetreten ist.
 \end{itemize}
 \noindent
 Diese Mechanismen stellen sicher, dass der Entwickler das Verhalten bei einem Überlauf explizit kontrollieren und somit sichereren Code schreiben kann.

@@ -6,7 +6,7 @@ Lebensdauern (\emph{lifetimes}) sind eine Art von generischen Parametern, die si
 Dies verhindert das Auftreten von hängenden Referenzen und ermöglicht eine präzise Kontrolle über die Lebensdauer von Daten im Speicher.\\
 \\
 Rust verwendet Lebensdauern, um sicherzustellen, dass Referenzen nicht auf ungültige Daten zeigen. Eine Lebensdauer beschreibt den Gültigkeitsbereich einer Referenz. 
-Rust prüft zur Kompilierzeit, dass alle Referenzen gültig sind, wodurch viele gängige Speicherfehler verhindert werden.
+Rust prüft zur Kompilierzeit, dass alle Referenzen gültig sind.
 
 \section{Praktische Beispiele}
 Hier sind zwei Beispiele, die zeigen, wie Lebensdauern in Rust verwendet werden:
@@ -17,7 +17,7 @@ pub fn get_first_word(s: &str) -> &str {
 }
 \end{lstlisting}
 \noindent
-In diesem Beispiel wird eine Funktion definiert, die das erste Wort in einem String zurückgibt. 
+In diesem Beispiel wird eine Funktion definiert, die das erste Wort in einem \texttt{String} zurückgibt. 
 Der Rückgabewert ist eine Referenz auf ein Teilstück des Eingabestrings.
 Rust stellt sicher, dass die Rückgabe nur so lange gültig ist, wie der Eingabestring selbst.
 In diesem Beispiel kann Rust die Lebensdauer aus dem Kontext heraus selbst bestimmen.
@@ -37,7 +37,7 @@ Beide Eingabereferenzen und die Rückgabereferenz haben dieselbe Lebensdauer \te
 Das bedeutet, dass die Rückgabereferenz nur so lange gültig ist, wie beide Eingabereferenzen gültig sind.\\
 \\
 Die Angabe der Lebensdauer ist notwendig, da der Compiler ohne diese Annotation nicht in der Lage ist, die Beziehung zwischen den Lebensdauern der Eingabereferenzen und der Rückgabereferenz zu erkennen. 
-Rusts \textit{gls{borrow-checker}} kann ohne die explizite Angabe der Lebensdauer \texttt{'a} nicht sicherstellen, dass die Rückgabe einer der Eingabereferenzen keine ungültigen Referenzen erzeugt. 
+Rusts \textit{\gls{borrow-checker}} kann ohne die explizite Angabe der Lebensdauer \texttt{'a} nicht sicherstellen, dass die Rückgabe einer der Eingabereferenzen keine ungültigen Referenzen erzeugt. 
 Die Lebensdauer \texttt{'a} stellt sicher, dass die Rückgabereferenz nur so lange gültig ist, wie beide Eingabereferenzen gültig sind, wodurch Speicherfehler vermieden werden.
 
 \section{Vergleich mit anderen Programmiersprachen}

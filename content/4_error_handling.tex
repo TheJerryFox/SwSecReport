@@ -1,5 +1,5 @@
 \chapter{Fehlerbehandlung}
-Rust bietet einen robusten Ansatz zur Fehlerbehandlung, der ohne Ausnahmen auskommt und somit eine sichere und vorhersehbare Fehlerbehandlung ermöglicht. 
+Rust bietet einen robusten Ansatz zur Fehlerbehandlung, der ohne Ausnahmen auskommt und eine sichere und vorhersehbare Fehlerbehandlung ermöglicht. 
 Im Gegensatz zu vielen anderen Programmiersprachen verwendet Rust das \texttt{Result} und \texttt{Option} Typsystem, um Fehler und fehlende Werte explizit zu behandeln.
 
 \section{Theoretische Grundlagen}
@@ -56,7 +56,7 @@ Mittels \texttt{match} kann überprüft werden, ob das Result \texttt{OK} ist un
 
 \section{Vergleich mit anderen Programmiersprachen}
 In vielen anderen Programmiersprachen, wie z.B. C++ oder Java, werden Ausnahmen \\ (\textit{\glspl{exception}}) verwendet, um Fehler zu behandeln. 
-Rusts Ansatz, Fehler explizit zu behandeln, führt zu einem vorhersebahren Verhalten und fördert den bewussten Umgang mit Fehlern \cite[Kapitel 9]{rust2023}.
+Rusts Ansatz, Fehler explizit zu behandeln, führt zu einem vorhersebahren Verhalten und fördert den bewussten Umgang mit Fehlern \cite[Kapitel 9]{rust2023}. Es müssen alle möglichen Fehler behandelt werden, auch wenn dies nur mittels \texttt{unwrap()} passiert.
 
 \begin{itemize}
     \item \textbf{C++}: Verwendet Ausnahmen, die oft schwer nachzuvollziehen und zu debuggen sind.
