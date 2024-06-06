@@ -27,5 +27,5 @@ Die Angabe der Lebensdauer ist notwendig, da der Compiler ohne diese Annotation 
 Rusts \textit{\gls{borrow-checker}} kann ohne die explizite Angabe der Lebensdauer \texttt{'a} nicht sicherstellen, dass die Rückgabe einer der Eingabereferenzen keine ungültigen Referenzen erzeugt. 
 Die Lebensdauer \texttt{'a} stellt sicher, dass die Rückgabereferenz nur so lange gültig ist, wie beide Eingabereferenzen gültig sind.\\
 \\
-Mit diesem System kann Rust häufige Speicherfehler wie in C++ vermeiden, wo der Programierrer für die Freigabe selbst verantwortlich ist.
-All dies ohne die zuhilfenahme eines garbage-collectors, wie in viele moderne Sprachen einsetzen.
+Mit diesem System kann Rust häufige Speicherfehler, wie z.B in C++, bei denen der Programierer für die Freigabe selbst verantwortlich ist, vermeiden.
+All dies ohne die Zuhilfenahme eines garbage-collectors, wie ihn viele moderne Sprachen einsetzen.
