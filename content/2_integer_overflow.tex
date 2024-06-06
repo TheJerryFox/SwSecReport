@@ -1,11 +1,11 @@
  \chapter{Integer-Überlauf}
 
-Der Integer-Überlauf ist ein häufiges Problem in vielen Programmiersprachen, das zu unerwartetem Verhalten und Sicherheitslücken führen kann. 
-Ein Integer-Überlauf tritt auf, wenn eine arithmetische Operation das Maximum (oder Minimum) des für den Datentyp zulässigen Wertebereichs überschreitet. 
+
+Der Integer-Überlauf ist ein häufiges Problem in vielen Programmiersprachen, das zu schwerwiegenden Fehlern und Sicherheitslücken führen kann. 
+Ein Integer-Überlauf tritt auf, wenn eine arithmetische Operation das Maximum (oder Minimum) des für den Datentyp zulässigen Wertebereichs überschreitet.
 In vielen Programmiersprachen führt dies zu undefiniertem Verhalten oder unvorhersehbaren Ergebnissen, was potenziell ausnutzbare Schwachstellen zur Folge haben kann \cite{cwe190}.\\
 \\
 Rust hingegen bietet verschiedene Mechanismen, um Integer-Überläufe sicher zu handhaben und das Verhalten explizit zu definieren \cite[Kapitel 3.2]{rust2023}. 
-Diese Mechanismen sorgen dafür, dass der Code sicherer und robuster wird.
 
 \begin{lstlisting}[language=Rust, caption= Integer-Überläufe, label=list:overflow_example]
 pub fn overflow_how_not(){

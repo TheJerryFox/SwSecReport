@@ -46,7 +46,8 @@ pub fn signdness() {
 Das Beispiel \ref{list:signdness} zeigt die Funktion \texttt{signdness()}, die mögliche Probleme bei der Konvertierung zwischen signierten und unsignierten Typen darstellt. 
 Direkte Konvertierungen können zu logischen Fehlern oder Überläufen führen. 
 Daher ist es wichtig, explizite und sichere Methoden zu verwenden. 
-Auch hier muss der Programmierer explizit eine Konvertierung angeben.\\
+er Programmierer muss hierbei explizit eine Konvertierung veranlassen.\\
 \\
 In vielen dynamisch typisierten Sprachen wie Python oder JavaScript werden Typfehler erst zur Laufzeit entdeckt, was zu unvorhersehbarem Verhalten und potenziellen Sicherheitslücken führen kann. 
-Des Weiteren werden implizite Konvertierungen vermieden, wie sie beispielsweise in C\# auftreten, was unerwartetes Verhalten verursachen kann \cite[Kapitel 1. Types]{drysdale2024}.
+Zudem werden ebenfalls in diesen Sprachen implizite Typen-Konvertierungen, vorgenommen. \cite[Kapitel 1: Types]{drysdale2024}.
+Auch dies unterbindet rust wie in Beispiel \ref{list:static_type} und \ref{list:signdness} gezeigt.

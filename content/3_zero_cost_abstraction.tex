@@ -5,7 +5,8 @@ Dies bedeutet, dass der Overhead, der durch die Abstraktionen entsteht, zur Komp
 In anderen Sprachen kann dies zu einem Laufzeit-Overhead führen \cite{haberman2014}.
 
 \section{Iteratoren}
-Iteratoren helfen, um über eine Menge von Elementen zu iterieren und ersetzen eine explizite Schleife.
+Iteratoren helfen dabei, über eine Menge von Elementen zu iterieren und ersetzen eine explizite Schleife. 
+Sie bieten eine abstrahierte Möglichkeit zur Verarbeitung von Sequenzen, wodurch die Programmlogik klarer und fehlerresistenter wird.
 \begin{lstlisting}[language=Rust, caption=Iterator]
 use std::sync::mpsc;
 use std::thread;
@@ -19,8 +20,28 @@ pub fn iterator(){
     }
 }
 \end{lstlisting}
-Ein solcher Iterator löst die Programmlogik von der Schleifenlogik, wodurch typische Fehler wie \textit{\gls{off-by-one}} und daraus resultierende, z.B. falsche Array-Indexierung (Buffer-Overflow), vermieden werden.
-\cleardoublepage
+Ein solcher Iterator löst die Programmlogik von der Schleifenlogik, wodurch typische Fehler wie \textit{\gls{off-by-one}} und daraus resultierende, z.B. falsche Array-Indexierung (Buffer-Overflow), vermieden werden. 
+Darüber hinaus bieten Iteratoren eine einheitliche und oft effizientere Möglichkeit, mit Datenstrukturen zu arbeiten. 
+\section{Filter-Methode}
+
+Die \texttt{filter}-Methode ermöglicht es, Elemente eines Iterators basierend auf einer Bedingung zu filtern. 
+Dies ergänzt die Funktionalität von Iteratoren und hilft, spezifische Elemente aus einer Sequenz herauszufiltern.
+\begin{lstlisting}[language=Rust, caption=Filter-Funktion]
+pub fn filter(){
+    let numbers = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+    // Use filter to find even numbers
+    let even_numbers: Vec<_> = numbers.iter()
+        .filter(|&&x| x % 2 == 0)
+        .collect();
+
+    println!("Even numbers: {:?}", even_numbers);
+}
+\end{lstlisting}
+Ein Filter auf einem Iterator separiert zusätzlich die Filterlogik. 
+An dieser Stelle könnte auch eine Methode verwendet werden, was für besser lesbaren Code sorgt. 
+Die Kombination von \texttt{filter} mit anderen Iterator-Methoden erlaubt eine deklarative Beschreibung von Datenverarbeitungsabläufen, was die Verständlichkeit und Wartbarkeit des Codes weiter erhöht.
+
 \section{Message Passing}
 
 Message Passing ist eine sichere und effiziente Methode zur Kommunikation zwischen Threads.
@@ -46,6 +67,7 @@ pub fn message_passing(){
     receiver_thread.join().unwrap();
 }
 \end{lstlisting}
+Das Beispiel \ref{list:channel} zeigt, wie mit \texttt{mpsc::channel()} ein Sender- und Empfängerkanal erstellt wird, über den Nachrichten sicher zwischen Threads, mittels \texttt{.send()} und \texttt{.recv()}, ausgetauscht werden können.
 Durch eine solche einfache Abstraktion können Datenrennen zwischen Threads vermieden werden. 
 Trotzdem können Threads effektiv kommunizieren und der Code bleibt lesbar.
 \cleardoublepage
@@ -53,7 +75,7 @@ Trotzdem können Threads effektiv kommunizieren und der Code bleibt lesbar.
 
 Der \texttt{Option}-Typ wird verwendet, um die mögliche Abwesenheit eines Wertes sicher zu handhaben. Hier ist ein Beispiel, wie man eine Division sicher durchführen kann:
 
-\begin{lstlisting}[language=Rust, caption=Option Typ]
+\begin{lstlisting}[language=Rust, caption=Option Typ, label=list:channel]
 pub fn option_type(){
     let dividend = 10;
     let divisor = 0;
@@ -73,24 +95,8 @@ fn find_divisor(dividend: i32, divisor: i32) -> Option<i32> {
 }
 \end{lstlisting}
 \noindent
-Eine \texttt{Option} gibt entweder einen Wert \texttt{Some} zurück oder einen \texttt{None}-Wert. Mittels \texttt{match} kann geprüft werden, ob ein Wert vorliegt und dementsprechend verarbeitet werden.
-
-\section{Filter-Funktion}
-
-Die \texttt{filter}-Methode ermöglicht es, Elemente eines Iterators basierend auf einer Bedingung zu filtern.
-
-\begin{lstlisting}[language=Rust, caption=Filter-Funktion]
-pub fn filter(){
-    let numbers = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-    // Use filter to find even numbers
-    let even_numbers: Vec<_> = numbers.iter()
-        .filter(|&&x| x % 2 == 0)
-        .collect();
-
-    println!("Even numbers: {:?}", even_numbers);
-}
-\end{lstlisting}
-Ein Filter auf einem Iterator separiert zusätzlich die Filterlogik. 
-An dieser Stelle könnte auch eine Methode verwendet werden. 
-Dies sorgt für besser lesbaren Code und beugt Logikfehlern vor (\textit{\gls{off-by-one}} etc.).
+Eine \texttt{Option} gibt entweder einen Wert \texttt{Some} zurück oder einen \texttt{None}-Wert. Mittels \texttt{match} kann geprüft werden, ob ein Wert vorliegt und dementsprechend verarbeitet werden.\\
+\\
+Dadurch wird vermieden, wie es oft in C++ der Fall ist, dass spezielle Rückgabewerte wie \texttt{-1} oder andere verwendet werden müssen, um besondere Zustände zu signalisieren. 
+Ein bekanntes Beispiel dafür ist die Methode \texttt{std::string::find} aus der C++ Standardbibliothek, die \texttt{std::string::npos} (typischerweise \texttt{-1}) zurückgibt, wenn ein Wert nicht gefunden wird. 
+Solche Werte können unter Umständen zu Konflikten führen \cite{cppreference_string_find} \cite{cppreference_string_npos}. 
