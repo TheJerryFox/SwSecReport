@@ -1,29 +1,12 @@
 \chapter{Zero-Cost-Abstraktionen}
 
 Zero-Cost-Abstraktionen sind ein zentrales Konzept in Rust, das es ermöglicht, hohe Abstraktionen zu verwenden, ohne die Laufzeit des Programms zu beeinträchtigen. 
-Dies bedeutet, dass der Overhead, der durch die Abstraktionen entsteht, zur Kompilierzeit eliminiert wird, sodass der generierte Maschinencode ähnlich effizient ist wie handgeschriebener Low-Level-Code \cite{sequeira2023}.
+Dies bedeutet, dass der Overhead, der durch die Abstraktionen entsteht, zur Kompilierzeit eliminiert wird, sodass der generierte Maschinencode ähnlich effizient ist wie handgeschriebener Low-Level-Code \cite{sequeira2023}. 
+In anderen Sprachen kann dies zu einem Laufzeit-Overhead führen \cite{haberman2014}.
 
-\section{Theoretische Grundlagen}
-
-In vielen Programmiersprachen führen Abstraktionen zu einem gewissen Laufzeit-Overhead, sei es durch zusätzliche Funktionsaufrufe, Speicherallokationen oder andere Mechanismen.
-Rusts Zero-Cost-Abstraktionen gewährleisten, dass solche Abstraktionen zur Kompilierzeit aufgelöst werden, wodurch der generierte Code ähnlich speicher- und laufzeiteffizient bleibt wie bei direkter Implementierung \cite{haberman2014}.
-
-\section{Praktische Beispiele}
-
-Hier sind einige Beispiele für Zero-Cost-Abstraktionen in Rust:
-
-\begin{itemize}
-    \item Iteratoren
-    \item Nachrichtenübermittlung
-    \item Der Option-Typ
-    \item Filter-Funktion
-\end{itemize}
-
-\subsection{Iteratoren}
-
-Rust bietet leistungsstarke Iteratoren, die keine zusätzlichen Laufzeitkosten verursachen. 
-Hier ist ein Beispiel, das zeigt, wie man sicher durch einen Vektor iteriert:
-
+\section{Iteratoren}
+Iteratoren helfen dabei, über eine Menge von Elementen zu iterieren und ersetzen eine explizite Schleife. 
+Sie bieten eine abstrahierte Möglichkeit zur Verarbeitung von Sequenzen, wodurch die Programmlogik klarer und fehlerresistenter wird.
 \begin{lstlisting}[language=Rust, caption=Iterator]
 use std::sync::mpsc;
 use std::thread;
@@ -37,11 +20,31 @@ pub fn iterator(){
     }
 }
 \end{lstlisting}
-Ein solcher Iterator löst die Programmlogik von der Schleifenlogik, wodurch typische Fehler wie \textit{\gls{off-by-one}} und daraus resultierende falsche Array-Indexierung vermieden werden.
-\cleardoublepage
-\subsection{Message Passing}
+Ein solcher Iterator löst die Programmlogik von der Schleifenlogik, wodurch typische Fehler wie \textit{\gls{off-by-one}} und daraus resultierende, z.B. falsche Array-Indexierung (Buffer-Overflow), vermieden werden. 
+Darüber hinaus bieten Iteratoren eine einheitliche und oft effizientere Möglichkeit, mit Datenstrukturen zu arbeiten. 
+\section{Filter-Methode}
 
-Message Passing ist eine sichere und effiziente Methode zur Kommunikation zwischen Threads, die in Rust ebenfalls ohne Laufzeitkosten implementiert ist:
+Die \texttt{filter}-Methode ermöglicht es, Elemente eines Iterators basierend auf einer Bedingung zu filtern. 
+Dies ergänzt die Funktionalität von Iteratoren und hilft, spezifische Elemente aus einer Sequenz herauszufiltern.
+\begin{lstlisting}[language=Rust, caption=Filter-Funktion]
+pub fn filter(){
+    let numbers = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+    // Use filter to find even numbers
+    let even_numbers: Vec<_> = numbers.iter()
+        .filter(|&&x| x % 2 == 0)
+        .collect();
+
+    println!("Even numbers: {:?}", even_numbers);
+}
+\end{lstlisting}
+Ein Filter auf einem Iterator separiert zusätzlich die Filterlogik. 
+An dieser Stelle könnte auch eine Methode verwendet werden, was für besser lesbaren Code sorgt. 
+Die Kombination von \texttt{filter} mit anderen Iterator-Methoden erlaubt eine deklarative Beschreibung von Datenverarbeitungsabläufen, was die Verständlichkeit und Wartbarkeit des Codes weiter erhöht.
+
+\section{Message Passing}
+
+Message Passing ist eine sichere und effiziente Methode zur Kommunikation zwischen Threads.
 
 \begin{lstlisting}[language=Rust, caption=Message Passing ]
 pub fn message_passing(){
@@ -64,13 +67,15 @@ pub fn message_passing(){
     receiver_thread.join().unwrap();
 }
 \end{lstlisting}
-Durch eine solche einfach Abstraktion können Datenrennen zwischen threads vermieden werden.
-Trotzdem können Threads effektiv komunizieren und der Code bleibt lesbar.
-\subsection{Option Typ}
+Das Beispiel \ref{list:channel} zeigt, wie mit \texttt{mpsc::channel()} ein Sender- und Empfängerkanal erstellt wird, über den Nachrichten sicher zwischen Threads, mittels \texttt{.send()} und \texttt{.recv()}, ausgetauscht werden können.
+Durch eine solche einfache Abstraktion können Datenrennen zwischen Threads vermieden werden. 
+Trotzdem können Threads effektiv kommunizieren und der Code bleibt lesbar.
+\cleardoublepage
+\section{Option Typ}
 
-Der \texttt{Option} Typ wird verwendet, um mögliche Abwesenheit eines Wertes sicher zu handhaben. Hier ist ein Beispiel, wie man eine Division sicher durchführen kann:
+Der \texttt{Option}-Typ wird verwendet, um die mögliche Abwesenheit eines Wertes sicher zu handhaben. Hier ist ein Beispiel, wie man eine Division sicher durchführen kann:
 
-\begin{lstlisting}[language=Rust, caption=Option Typ]
+\begin{lstlisting}[language=Rust, caption=Option Typ, label=list:channel]
 pub fn option_type(){
     let dividend = 10;
     let divisor = 0;
@@ -90,36 +95,8 @@ fn find_divisor(dividend: i32, divisor: i32) -> Option<i32> {
 }
 \end{lstlisting}
 \noindent
-Eine \texttt{Option} gibt entweder einen wert \texttt{Some} zurück oder einen \texttt{None} Wert.
-Mittels \texttt{match} kann geprüft werden ob ein Wert vorliegt und dementsprechend verarbeitet werden.
-
-\subsection{Filter-Funktion}
-
-Die \texttt{filter} Methode ermöglicht es, Elemente eines Iterators basierend auf einer Bedingung zu filtern, ohne zusätzlichen Laufzeitaufwand:
-
-\begin{lstlisting}[language=Rust, caption=Filter-Funktion]
-pub fn filter(){
-    let numbers = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-    // Use filter to find even numbers
-    let even_numbers: Vec<_> = numbers.iter()
-        .filter(|&&x| x % 2 == 0)
-        .collect();
-
-    println!("Even numbers: {:?}", even_numbers);
-}
-\end{lstlisting}
-Ein Filter auf einem Iterator seperiert zusätzlich die Filter logik.
-An dieser stelle könnte auch eine Methode verwendet werden.
-Dies sorgt für besser lesbaren Code und beugt logik fehlern vor (off by one etc.).
-\section{Vergleich mit anderen Programmiersprachen}
-
-In vielen anderen Programmiersprachen, wie zum Beispiel Python oder Java, führen hohe Abstraktionen häufig zu einem gewissen Maß an Laufzeitkosten. 
-Diese können in Form von zusätzlichen Funktionsaufrufen, Garbage Collection oder Speicherallokationen auftreten. 
-Rust eliminiert diese Kosten, indem es die Abstraktionen zur Kompilierzeit auflöst und so effizienten Maschinencode generiert.
-
-\section{Sicherheitsvorteile der Zero-Cost-Abstraktionen}
-
-Die Verwendung von Zero-Cost-Abstraktionen in Rust trägt zur Sicherheit des Codes bei.
-Vorimplementierte abstraktionen sind gut getested, machen den Code lesbarer, abstrahieren z.B. die iteration und verhindern so \textit{{\gls{off-by-one}}} Fehler.
-
+Eine \texttt{Option} gibt entweder einen Wert \texttt{Some} zurück oder einen \texttt{None}-Wert. Mittels \texttt{match} kann geprüft werden, ob ein Wert vorliegt und dementsprechend verarbeitet werden.\\
+\\
+Dadurch wird vermieden, wie es oft in C++ der Fall ist, dass spezielle Rückgabewerte wie \texttt{-1} oder andere verwendet werden müssen, um besondere Zustände zu signalisieren. 
+Ein bekanntes Beispiel dafür ist die Methode \texttt{std::string::find} aus der C++ Standardbibliothek, die \texttt{std::string::npos} (typischerweise \texttt{-1}) zurückgibt, wenn ein Wert nicht gefunden wird. 
+Solche Werte können unter Umständen zu Konflikten führen \cite{cppreference_string_find} \cite{cppreference_string_npos}. 

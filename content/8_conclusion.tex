@@ -1,31 +1,29 @@
 \chapter{Fazit}
 
 Rust hat sich als eine Programmiersprache erwiesen, die Sicherheit und Leistung gleichermaßen priorisiert. 
-Durch seine einzigartigen Sprachmerkmale bietet Rust Lösungen für viele der häufigsten Sicherheitsprobleme, die in der Softwareentwicklung auftreten. 
+Durch ihre einzigartigen Sprachmerkmale bietet Rust Lösungen für viele der häufigsten Sicherheitsprobleme, die in der Softwareentwicklung auftreten. 
 Die wichtigsten Sicherheitsaspekte, die wir in diesem Bericht untersucht haben, sind:
 
 \begin{itemize}
     \item \textbf{Statische Typen:} Rusts strenge statische Typisierung stellt sicher, dass Typfehler frühzeitig im Entwicklungsprozess erkannt werden. 
-    Dies reduziert die Wahrscheinlichkeit von Laufzeitfehlern und erhöht die Zuverlässigkeit des Codes.
-    
+      Dies reduziert die Wahrscheinlichkeit von Laufzeitfehlern und erhöht die Zuverlässigkeit des Codes.
     \item \textbf{Integer-Überlauf:} Rust verhindert Integer-Überläufe durch explizite Überlaufprüfungen und bietet Entwicklern Werkzeuge, um sichere numerische Berechnungen durchzuführen.
-    
-    \item \textbf{Zero-Cost-Abstraktionen:} Diese ermöglichen es, hochabstrakten und dennoch performanten Code zu schreiben.
-      Rusts Abstraktionen verursachen keine Laufzeitkosten, was zu effizientem und sicherem Code führt. Gleichzeitig können z.B. \textit{\gls{off-by-one}} Feherl vermieden werden.
-    
+
+    \item \textbf{Zero-Cost-Abstraktionen:} Diese ermöglichen es, hochabstrakten und dennoch performanten Code zu schreiben. 
+      Rusts Abstraktionen verursachen keine Laufzeitkosten, was zu effizientem und sicherem Code führt. Gleichzeitig können z.B. \textit{\gls{off-by-one}}-Fehler vermieden werden.
+
     \item \textbf{Fehlerbehandlung:} Rusts Ansatz zur Fehlerbehandlung ohne Ausnahmen, durch die Verwendung von \texttt{Result} und \texttt{Option}, fördert robustes und vorhersehbares Fehlermanagement.
-    
+
     \item \textbf{Besitz und Ausleihe:} Das Besitz- und Ausleihmodell von Rust garantiert Speicher- und Datensicherheit ohne die Notwendigkeit eines Garbage Collectors. 
-    Dies verhindert Speicherlecks und Datenrennen.
-    
+      Dies verhindert Speicherlecks und Datenrennen.
+
     \item \textbf{Lebensdauer-Tracking:} Durch die explizite Angabe von Lebensdauern verhindert Rust Dangling References und gewährleistet sichere Speicherzugriffe.
-    
+
     \item \textbf{Sichere Nebenläufigkeit:} Rust ermöglicht es, nebenläufigen Code sicher und effizient zu schreiben. 
-    Durch die Vermeidung von Datenrennen wird die Zuverlässigkeit nebenläufiger Programme erhöht.
+      Durch die Vermeidung von Datenrennen wird die Zuverlässigkeit nebenläufiger Programme erhöht.    
 \end{itemize}
 \noindent
 Zusammenfassend lässt sich sagen, dass Rust durch diese Sprachmerkmale eine sichere und zuverlässige Entwicklung von Software ermöglicht. 
-Die Kombination aus statischer Typisierung, sicherer Speicherverwaltung und robustem Fehlerhandling macht Rust zu einer idealen Wahl für sicherheitskritische Anwendungen. \\
+Die Kombination aus statischer Typisierung, sicherer Speicherverwaltung und robustem Fehlerhandling macht Rust zu einer idealen Wahl für sicherheitskritische Anwendungen.\\
 \\
 Mit Blick auf die Zukunft verspricht Rust, durch kontinuierliche Weiterentwicklung und Verbesserung, seine Position als eine der sicheren und leistungsfähigen Programmiersprachen weiter zu festigen.
-

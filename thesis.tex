@@ -97,8 +97,6 @@
 \titlespacing*{\paragraph}{0pt}{10pt}{5pt}
 \titlespacing*{\subparagraph}{0pt}{10pt}{5pt}
 % Redefine the chapter command to not start on a new page
-
-
 %\titleformat{\chapter}{\normalfont\bfseries}{\thechapter}{1pt}{\LARGE}
 %\titleformat{\section}{\normalfont\bfseries}{\thesection}{5pt}{}
 %\titlespacing*{\chapter}{0pt}{-10pt}{5pt}
@@ -187,6 +185,12 @@
 \makenoidxglossaries
 \loadglsentries{glossary}
 
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
+\makeatother
+
+
 \begin{document}
 \setcounter{secnumdepth}{3}  % numerate subsections
 \setcounter{tocdepth}{2}  % ...but don't include them in toc
@@ -215,6 +219,9 @@
     morestring=[b]',
     morestring=[b]"
 }
+
+
+
 
 \include{content/0_abstract}\cleardoublepage
 

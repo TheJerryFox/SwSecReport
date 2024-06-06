@@ -1,34 +1,9 @@
 \chapter{Fehlerbehandlung}
-Rust bietet einen robusten Ansatz zur Fehlerbehandlung, der ohne Ausnahmen auskommt und eine sichere und vorhersehbare Fehlerbehandlung ermöglicht. 
-Im Gegensatz zu vielen anderen Programmiersprachen verwendet Rust das \texttt{Result} und \texttt{Option} Typsystem, um Fehler und fehlende Werte explizit zu behandeln.
+Rust bietet einen robusten Ansatz zur Fehlerbehandlung, der ohne Ausnahmen (\glspl{exception}) auskommt und eine sichere und vorhersehbare Fehlerbehandlung ermöglicht. 
+Im Gegensatz zu vielen anderen Programmiersprachen verwendet Rust das \texttt{Result} und \texttt{Option}-Typsystem, um Fehler und fehlende Werte explizit zu behandeln.\\
+\\
+Fehler werden durch den \texttt{Result<T, E>}-Typ dargestellt. \texttt{Result<T, E>} ist ein Typ, der entweder einen Wert vom Typ \texttt{T} oder einen Fehler vom Typ \texttt{E} enthält.
 
-\section{Theoretische Grundlagen}
-In Rust werden Fehler durch die Typen \texttt{Result<T, E>} und \texttt{Option<T>} behandelt. 
-\texttt{Result<T, E>} ist ein Typ, der entweder einen Wert vom Typ \texttt{T} oder einen Fehler vom Typ \texttt{E} enthält. 
-
-\section{Praktische Beispiele}
-Im Folgenden werden zwei Beispiele gezeigt: eines, das keine sichere Fehlerbehandlung verwendet, und eines, das Rusts robusten Ansatz zur Fehlerbehandlung nutzt.
-
-\begin{lstlisting}[language=Rust, caption=Unsichere Fehlerbehandlung]
-use std::fs::File;
-use std::io::Read;
-
-pub fn get_file_unsave() {
-    // This will panic if there's an error
-    let contents = read_file_content_unsave(); 
-    println!("File contents: {}", contents);
-}
-
-fn read_file_content_unsave() -> String {
-    // Risky if file is not found
-    let mut file = File::open("example.txt").unwrap();  
-    let mut contents = String::new();
-    // Panics on error
-    file.read_to_string(&mut contents).unwrap();  
-    contents
-}
-\end{lstlisting}
-\cleardoublepage
 \begin{lstlisting}[language=Rust, caption=Sichere Fehlerbehandlung]
 use std::fs::File;
 use std::io::Read;
@@ -48,29 +23,9 @@ fn read_file_content() -> Result<String, std::io::Error> {
 }
 \end{lstlisting}
 \noindent
-Im ersten Beispiel wird keine Fehlerbehandlung vorgenommen. 
-Das Programm wird mit \texttt{unwrap()} gezwungen, den Inhalt der Datei zu lesen, was zum Absturz des Programms führt, falls ein Fehler auftritt. Im zweiten Beispiel wird die \texttt{Result}-Typ verwendet, um Fehler abzufangen und zu behandeln, was zu einem robusteren und sichereren Code führt.\\
+Die Funktion \texttt{read\_file\_content()} gibt einen \texttt{Result}-Typ zurück, welcher einen Fehler beinhaltet, sollte die Dateioperation fehlschlagen. 
+Mittels \texttt{match} kann überprüft werden, ob das Result \texttt{OK} ist und ein Wert vorliegt oder ob das \texttt{Result} ein Fehler ist.\\
 \\
-\texttt{Unwrap()} gibt von einem Fehlertyp den Wert zurück falls ein Fehler vorliegt geht das Program in eine \textit{\gls{panic}}. 
-Mittels \texttt{match} kann überprüft werden, ob das Result \texttt{OK} ist und ein Wert vorliegt oder ob das \texttt{Result} ein Fehler ist.
-
-\section{Vergleich mit anderen Programmiersprachen}
-In vielen anderen Programmiersprachen, wie z.B. C++ oder Java, werden Ausnahmen \\ (\textit{\glspl{exception}}) verwendet, um Fehler zu behandeln. 
-Rusts Ansatz, Fehler explizit zu behandeln, führt zu einem vorhersebahren Verhalten und fördert den bewussten Umgang mit Fehlern \cite[Kapitel 9]{rust2023}. Es müssen alle möglichen Fehler behandelt werden, auch wenn dies nur mittels \texttt{unwrap()} passiert.
-
-\begin{itemize}
-    \item \textbf{C++}: Verwendet Ausnahmen, die oft schwer nachzuvollziehen und zu debuggen sind.
-    \item \textbf{Java}: Nutzt ebenfalls Ausnahmen, wobei der Entwickler sicherstellen muss, dass alle möglichen Ausnahmen abgefangen werden.
-    \item \textbf{Rust}: Verwendet das \texttt{Result} und \texttt{Option} Typsystem, um Fehler explizit zu behandeln.
-\end{itemize}
-
-\section{Sicherheitsvorteile}
-Rusts Ansatz zur Fehlerbehandlung bietet mehrere Sicherheitsvorteile:
-
-\begin{itemize}
-    \item \textbf{Vorhersehbarkeit}: Da Fehler explizit behandelt werden müssen, ist das Verhalten des Programms vorhersehbarer.
-    \item \textbf{Vermeidung von Panics}: Durch die Verwendung von \texttt{Result} und \texttt{Option} können viele \textit{\glspl{panic}} vermieden werden, was die Stabilität des Programms erhöht.
-    \item \textbf{Robustheit}: Der Code wird robuster, da alle möglichen Fehlerfälle berücksichtigt und behandelt werden, sofern das unsichere \texttt{unwrap()} vermieden wird.
-\end{itemize}
-\noindent
-
+Generell müssen in Rust alle möglichen Fehler behandelt werden. 
+Dies kann auch durch \texttt{unwrap()} geschehen, welches den \texttt{OK}-Wert zurückgibt oder im Falle eines Fehlers eine \textit{\gls{panic}} wirft. 
+In beiden Fällen muss der Programmierer diese jedoch explizit behandeln.

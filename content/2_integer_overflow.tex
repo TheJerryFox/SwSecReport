@@ -1,17 +1,11 @@
-\chapter{Integer-Überlauf}
+ \chapter{Integer-Überlauf}
 
-\section{Theoretische Grundlagen}
 
-Der Integer-Überlauf ist ein häufiges Problem in vielen Programmiersprachen, das zu unerwartetem Verhalten und Sicherheitslücken führen kann. 
-Ein Integer-Überlauf tritt auf, wenn eine arithmetische Operation das Maximum (oder Minimum) des für den Datentyp zulässigen Wertebereichs überschreitet. 
+Der Integer-Überlauf ist ein häufiges Problem in vielen Programmiersprachen, das zu schwerwiegenden Fehlern und Sicherheitslücken führen kann. 
+Ein Integer-Überlauf tritt auf, wenn eine arithmetische Operation das Maximum (oder Minimum) des für den Datentyp zulässigen Wertebereichs überschreitet.
 In vielen Programmiersprachen führt dies zu undefiniertem Verhalten oder unvorhersehbaren Ergebnissen, was potenziell ausnutzbare Schwachstellen zur Folge haben kann \cite{cwe190}.\\
 \\
 Rust hingegen bietet verschiedene Mechanismen, um Integer-Überläufe sicher zu handhaben und das Verhalten explizit zu definieren \cite[Kapitel 3.2]{rust2023}. 
-Diese Mechanismen sorgen dafür, dass der Code sicherer und robuster wird.
-
-\section{Praktische Beispiele}
-
-Das folgende Beispiel zeigt, wie Rust Integer-Überläufe in verschiedenen Szenarien behandelt:
 
 \begin{lstlisting}[language=Rust, caption= Integer-Überläufe, label=list:overflow_example]
 pub fn overflow_how_not(){
@@ -43,31 +37,13 @@ pub fn overflow(){
         overflowing_sum, overflowed);  
 }
 \end{lstlisting}
-
-\section{Vergleich mit anderen Programmiersprachen}
-
-In vielen Programmiersprachen wie C und C++ wird ein Integer-Überlauf nicht automatisch erkannt und ein überlauf resultiert in undefiniertem Verhalten. 
-Dies kann schwerwiegende Sicherheitslücken verursachen, die von Angreifern ausgenutzt werden können.
-Rust überprüft auf überlaufe im Debug-modus.
-Im Release-modus ist diese überpürung aus performance gründen standardmäßg deaktiviert.
-Ein Über- oder Unterlauf ist in Rust jedoch immer definiertes Verhalten mit einem \textit{\gls{wrap-around}}.\\
-\\
-Rust bietet mehrere Möglichkeiten, Integer-Überläufe sicher zu handhaben:
+\cleardoublepage
+\noindent
+Wie in Beispiel \ref{list:overflow_example} zu sehen, bietet Rust mehrere Möglichkeiten, Integer-Überläufe sicher zu handhaben:
 
 \begin{itemize}
-    \item \textbf{Überprüfte Addition (checked addition)}: Gibt \texttt{None} zurück, wenn ein Überlauf auftritt.
-    \item \textbf{Wrappende Addition (wrapping addition)}: Wickelt den Wert bei Überlauf um, entsprechend dem Wertebereich des Datentyps.
-    \item \textbf{Sättigende Addition (saturating addition)}: Begrenzte den Wert auf den maximalen oder minimalen Wert des Datentyps bei Überlauf.
-    \item \textbf{Überlaufende Addition (overflowing addition)}: Gibt ein \textit{\gls{tupel}} zurück, bestehend aus dem Ergebnis der Addition und einem booleschen Wert, der anzeigt, ob ein Überlauf aufgetreten ist.
+\item \textbf{Überprüfte Addition (checked addition)}: Gibt \texttt{None} zurück, wenn ein Überlauf auftritt.
+\item \textbf{Wrappende Addition (wrapping addition)}: Wickelt den Wert bei Überlauf um, entsprechend dem Wertebereich des Datentyps.
+\item \textbf{Sättigende Addition (saturating addition)}: Begrenzt den Wert auf den maximalen oder minimalen Wert des Datentyps bei Überlauf.
+\item \textbf{Überlaufende Addition (overflowing addition)}: Gibt ein \textit{\gls{tupel}} zurück, bestehend aus dem Ergebnis der Addition und einem booleschen Wert, der anzeigt, ob ein Überlauf aufgetreten ist.
 \end{itemize}
-\noindent
-Diese Mechanismen stellen sicher, dass der Entwickler das Verhalten bei einem Überlauf explizit kontrollieren und somit sichereren Code schreiben kann.
-
-\section{Sicherheitsvorteile der Rust-Features}
-
-Durch definiertes verhalten und die möglichkeit für explizite Handhabung von Integer-Überläufen, wie in Beispiel \ref{list:overflow_example} gezeigt, trägt Rust erheblich zur Sicherheit von Anwendungen bei. 
-Entwickler können bewusst entscheiden, wie Überläufe behandelt werden sollen, und vermeiden so unvorhersehbare und potenziell gefährliche Situationen. 
-Die verschiedenen Methoden zur Überlaufbehandlung ermöglichen es, die Anforderungen unterschiedlicher Anwendungsfälle zu erfüllen, ohne Kompromisse bei der Sicherheit einzugehen.\\
-\\
-Zusammengefasst bietet Rust durch seine strikte und transparente Handhabung von Integer-Überläufen eine solide Basis für die Entwicklung sicherer Software, die weniger anfällig für typische Sicherheitslücken ist, wie sie in anderen Programmiersprachen häufig auftreten \cite{tung2020}.
-
