@@ -71,11 +71,11 @@ Das Beispiel \ref{list:channel} zeigt, wie mit \texttt{mpsc::channel()} ein Send
 Durch eine solche einfache Abstraktion können Datenrennen zwischen Threads vermieden werden. 
 Trotzdem können Threads effektiv kommunizieren und der Code bleibt lesbar.
 \cleardoublepage
-\section{Option Typ}
+\section{Option-Typ}
 
 Der \texttt{Option}-Typ wird verwendet, um die mögliche Abwesenheit eines Wertes sicher zu handhaben. Hier ist ein Beispiel, wie man eine Division sicher durchführen kann:
 
-\begin{lstlisting}[language=Rust, caption=Option Typ, label=list:channel]
+\begin{lstlisting}[language=Rust, caption=Option-Typ, label=list:channel]
 pub fn option_type(){
     let dividend = 10;
     let divisor = 0;
