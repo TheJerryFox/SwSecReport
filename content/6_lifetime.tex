@@ -1,28 +1,15 @@
 \chapter{Lebensdauer-Tracking}
 
-\section{Theoretische Grundlagen}
 Das Lebensdauer-Tracking ist ein zentrales Konzept in Rust, das dazu beiträgt, Speicherfehler zu verhindern. 
 Lebensdauern (\emph{lifetimes}) sind eine Art von generischen Parametern, die sicherstellen, dass Referenzen nur so lange gültig sind, wie es der Kontext erfordert. 
 Dies verhindert das Auftreten von hängenden Referenzen und ermöglicht eine präzise Kontrolle über die Lebensdauer von Daten im Speicher.\\
 \\
-Rust verwendet Lebensdauern, um sicherzustellen, dass Referenzen nicht auf ungültige Daten zeigen. Eine Lebensdauer beschreibt den Gültigkeitsbereich einer Referenz. 
+Rust verwendet Lebensdauern, um sicherzustellen, dass Referenzen nicht auf ungültige Daten zeigen. 
+Eine Lebensdauer beschreibt den Gültigkeitsbereich einer Referenz. 
 Rust prüft zur Kompilierzeit, dass alle Referenzen gültig sind.
-
-\section{Praktische Beispiele}
-Hier sind zwei Beispiele, die zeigen, wie Lebensdauern in Rust verwendet werden:
-
-\begin{lstlisting}[language=Rust, caption={Impliziete lifetime}]
-pub fn get_first_word(s: &str) -> &str {
-    s.split_whitespace().next().unwrap_or("")
-}
-\end{lstlisting}
-\noindent
-In diesem Beispiel wird eine Funktion definiert, die das erste Wort in einem \texttt{String} zurückgibt. 
-Der Rückgabewert ist eine Referenz auf ein Teilstück des Eingabestrings.
-Rust stellt sicher, dass die Rückgabe nur so lange gültig ist, wie der Eingabestring selbst.
-In diesem Beispiel kann Rust die Lebensdauer aus dem Kontext heraus selbst bestimmen.
-
-\begin{lstlisting}[language=Rust, caption={Expliziete lifetime}]
+In einfachen Beispielen kann Rust die Lebensdauer selbst ableiten.
+Bei komplizierteren strukturen mit Referenzen muss der Programierer die Lebensezti angeben.
+\begin{lstlisting}[language=Rust, caption={Expliziete lifetime}, label=list:lifetime]
 pub fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
     if x.len() > y.len() {
         x
@@ -32,33 +19,12 @@ pub fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
 }
 \end{lstlisting}
 \noindent
-Hier wird eine Funktion definiert, die die längere von zwei Zeichenketten zurückgibt. 
-Beide Eingabereferenzen und die Rückgabereferenz haben dieselbe Lebensdauer \texttt{'a}. 
+Beide Eingabereferenzen und die Rückgabereferenz, in Beispiel \ref{list:lifetime}, haben dieselbe Lebensdauer \texttt{'a}. 
 Das bedeutet, dass die Rückgabereferenz nur so lange gültig ist, wie beide Eingabereferenzen gültig sind.\\
 \\
 Die Angabe der Lebensdauer ist notwendig, da der Compiler ohne diese Annotation nicht in der Lage ist, die Beziehung zwischen den Lebensdauern der Eingabereferenzen und der Rückgabereferenz zu erkennen. 
 Rusts \textit{\gls{borrow-checker}} kann ohne die explizite Angabe der Lebensdauer \texttt{'a} nicht sicherstellen, dass die Rückgabe einer der Eingabereferenzen keine ungültigen Referenzen erzeugt. 
-Die Lebensdauer \texttt{'a} stellt sicher, dass die Rückgabereferenz nur so lange gültig ist, wie beide Eingabereferenzen gültig sind, wodurch Speicherfehler vermieden werden.
-
-\section{Vergleich mit anderen Programmiersprachen}
-In vielen Programmiersprachen wie C und C++ muss der Programmierer manuell sicherstellen, dass Referenzen nicht auf ungültige Speicherbereiche zeigen, auch müssen diese manuell freigegeben werden. \\
+Die Lebensdauer \texttt{'a} stellt sicher, dass die Rückgabereferenz nur so lange gültig ist, wie beide Eingabereferenzen gültig sind, wodurch Speicherfehler vermieden werden.\\
 \\
-Im Gegensatz dazu prüft Rust zur Kompilierzeit die Gültigkeit von Referenzen durch das Lebensdauer-Tracking. 
-Dies führt zu sichererem Code, da viele Speicherfehler frühzeitig erkannt und verhindert werden.
-
-\subsection{Sicherheitsvorteile}
-Das Lebensdauer-Tracking in Rust bietet mehrere Sicherheitsvorteile:
-
-\begin{itemize}
-    \item \textbf{Vermeidung von Dangling References:} Lebensdauern stellen sicher, dass Referenzen nur so lange gültig sind, wie die referenzierten Daten.
-    \item \textbf{Kompilierzeitprüfungen:} Viele Speicherfehler werden bereits zur Kompilierzeit erkannt, was die Zuverlässigkeit des Codes erhöht.
-    \item \textbf{Keine Garbage Collection:} Rust erreicht Speicher- und Referenzsicherheit ohne Garbage Collection, was zu besserer Performance führt.
-\end{itemize}
-\noindent
-Durch das Lebensdauer-Tracking stellt Rust sicher, dass Programme sicher und effizient arbeiten, ohne die typischen Probleme von Speicherverwaltung und Referenzen.
-
-\section{Fazit}
-Lebensdauer-Tracking ist ein mächtiges Werkzeug in Rust, das zur Speicher- und Referenzsicherheit beiträgt. 
-Durch die strikte Kontrolle und Kompilierzeitprüfungen können viele gängige Fehler vermieden werden. 
-Dies macht Rust zu einer Wahl für sicherheitskritische und performante Anwendungen.
-
+Mit diesem System kann Rust häufige Speicherfehler wie in C++ vermeiden, wo der Programierrer für die Freigabe selbst verantwortlich ist.
+All dies ohne die zuhilfenahme eines garbage-collectors, wie in viele moderne Sprachen einsetzen.

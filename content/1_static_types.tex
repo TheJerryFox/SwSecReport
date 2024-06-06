@@ -1,14 +1,10 @@
 
 \chapter{Statische Typen}
 
-\section{Theoretische Grundlagen}
-
 Rust ist eine statisch typisierte Programmiersprache, was bedeutet, dass die Typen aller Variablen zur Kompilierzeit bekannt sein müssen. 
 Dies ermöglicht dem Compiler, viele Fehler frühzeitig zu erkennen und zu verhindern, dass unsichere Operationen wie Dereferenzierungen von Nullzeigern oder ungesicherte Typumwandlungen, Typfehler und Typinkompatibilitäten ausgeführt werden. 
 
-\section{Praktische Beispiele}
-
-\begin{lstlisting}[language=Rust, caption={i32 in i64}]
+\begin{lstlisting}[language=Rust, caption={i32 in i64}, label=list:static_type]
 pub fn i32_in_i64() {
     let smol: i32 = 128;
 
@@ -23,11 +19,11 @@ pub fn i32_in_i64() {
 \end{lstlisting}
 
 \noindent
-In diesem Beispiel wird versucht, einen \texttt{i32}-Wert direkt in einen \texttt{i64}-Wert zu konvertieren, was nicht erlaubt ist. 
+Beispiel \ref{list:static_type} den Versuch, einen \texttt{i32}-Wert direkt in einen \texttt{i64}-Wert zu konvertieren, was nicht erlaubt ist. 
 Stattdessen kann die Methode \texttt{into()} verwendet werden, um explizit eine Typenkonvertierung zu veranlassen. 
 Rust führt keine impliziten Konvertierungen durch; der Programmierer muss an dieser Stelle explizit sein \cite[Kapitel 1. Types]{drysdale2024}.
 
-\begin{lstlisting}[language=Rust, caption={Signiertheit}]
+\begin{lstlisting}[language=Rust, caption={Signiertheit}, label=list:signdness]
 pub fn signdness() {
     let unsigned_val: u32 = 150;
     let signed_val: i32 = -100;
@@ -47,20 +43,10 @@ pub fn signdness() {
     }
 \end{lstlisting}
 \noindent
-In diesem Beispiel zeigt die Funktion \texttt{signdness()} die möglichen Probleme bei der Konvertierung zwischen signierten und unsignierten Typen. 
+Das Beispiel \ref{list:signdness} zeigt die Funktion \texttt{signdness()} die möglichen Probleme bei der Konvertierung zwischen signierten und unsignierten Typen. 
 Direkte Konvertierungen können zu logischen Fehlern oder Überläufen führen, daher ist es wichtig, explizite und sichere Methoden zu verwenden.
-Auch hier muss der Programierer explizit eine Konvertierung angeben.
-
-\subsection{Vergleich mit anderen Programmiersprachen}
-
-In vielen dynamisch typisierten Sprachen wie Python oder JavaScript werden Typfehler erst zur Laufzeit entdeckt, was zu unvorhersehbarem Verhalten und potenziellen Sicherheitslücken führen kann. 
-
-\subsection{Sicherheitsvorteile der statischen Typen in Rust}
-
-Die statische Typisierung in Rust bietet mehrere Sicherheitsvorteile:
-\begin{itemize}
-    \item \textbf{Frühe Fehlererkennung:} Typfehler werden während der Kompilierung erkannt, was die Wahrscheinlichkeit von Laufzeitfehlern verringert \cite{shuklin2020}.
-    \item \textbf{Explizite Konvertierungen:} Automatische und implizite Typkonvertierungen werden in Rust vermieden, was dazu beiträgt, unerwartete Fehler zu vermeiden \cite[Kapitel 1. Types]{drysdale2024}.
-    \item \textbf{Strikte Typüberprüfung:} Der Compiler erzwingt strenge Regeln für Typen und ihre Verwendung, was zu sichererem und stabilerem Code führt \cite{shuklin2020}.
-\end{itemize}
+Auch hier muss der Programierer explizit eine Konvertierung angeben.\\
+\\
+In vielen dynamisch typisierten Sprachen wie Python oder JavaScript werden Typfehler erst zur Laufzeit entdeckt, was zu unvorhersehbarem Verhalten und potenziellen Sicherheitslücken führen kann.
+Des weiteren werden impliziete Konvertierungen vermieden, wie diese beispielsweiße in C\# aufeten wass unerwartet verhalten verursachen kann \cite[Kapitel 1. Types]{drysdale2024}.
 

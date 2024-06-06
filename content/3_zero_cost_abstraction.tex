@@ -1,29 +1,11 @@
 \chapter{Zero-Cost-Abstraktionen}
 
-Zero-Cost-Abstraktionen sind ein zentrales Konzept in Rust, das es ermöglicht, hohe Abstraktionen zu verwenden, ohne die Laufzeit des Programms zu beeinträchtigen. 
+Zero-Cost-Abstraktionen sind ein zentrales Konzept in Rust, das es ermöglicht, hohe Abstraktionen zu verwenden, ohne die Laufzeit des Programms zu beeinträchtigen.
 Dies bedeutet, dass der Overhead, der durch die Abstraktionen entsteht, zur Kompilierzeit eliminiert wird, sodass der generierte Maschinencode ähnlich effizient ist wie handgeschriebener Low-Level-Code \cite{sequeira2023}.
+In anderen Sprachen kann dies zu eimem Laufzeit-Overhead führen \cite{haberman2014}.
 
-\section{Theoretische Grundlagen}
-
-In vielen Programmiersprachen führen Abstraktionen zu einem gewissen Laufzeit-Overhead, sei es durch zusätzliche Funktionsaufrufe, Speicherallokationen oder andere Mechanismen.
-Rusts Zero-Cost-Abstraktionen gewährleisten, dass solche Abstraktionen zur Kompilierzeit aufgelöst werden, wodurch der generierte Code ähnlich speicher- und laufzeiteffizient bleibt wie bei direkter Implementierung \cite{haberman2014}.
-
-\section{Praktische Beispiele}
-
-Hier sind einige Beispiele für Zero-Cost-Abstraktionen in Rust:
-
-\begin{itemize}
-    \item Iteratoren
-    \item Nachrichtenübermittlung
-    \item Der Option-Typ
-    \item Filter-Funktion
-\end{itemize}
-
-\subsection{Iteratoren}
-
-Rust bietet leistungsstarke Iteratoren, die keine zusätzlichen Laufzeitkosten verursachen. 
-Hier ist ein Beispiel, das zeigt, wie man sicher durch einen Vektor iteriert:
-
+\section{Iteratoren}
+Iteratoren helfen um über eine menge von elementen zu Iterieren und ersetzen eine expliziete schleife.
 \begin{lstlisting}[language=Rust, caption=Iterator]
 use std::sync::mpsc;
 use std::thread;
@@ -37,9 +19,9 @@ pub fn iterator(){
     }
 }
 \end{lstlisting}
-Ein solcher Iterator löst die Programmlogik von der Schleifenlogik, wodurch typische Fehler wie \textit{\gls{off-by-one}} und daraus resultierende falsche Array-Indexierung vermieden werden.
+Ein solcher Iterator löst die Programmlogik von der Schleifenlogik, wodurch typische Fehler wie \textit{\gls{off-by-one}} und daraus resultierende z.B. falsche Array-Indexierung (Buffer-oferlow) vermieden werden.
 \cleardoublepage
-\subsection{Message Passing}
+\section{Message Passing}
 
 Message Passing ist eine sichere und effiziente Methode zur Kommunikation zwischen Threads, die in Rust ebenfalls ohne Laufzeitkosten implementiert ist:
 
@@ -66,7 +48,8 @@ pub fn message_passing(){
 \end{lstlisting}
 Durch eine solche einfach Abstraktion können Datenrennen zwischen threads vermieden werden.
 Trotzdem können Threads effektiv komunizieren und der Code bleibt lesbar.
-\subsection{Option Typ}
+\cleardoublepage
+\section{Option Typ}
 
 Der \texttt{Option} Typ wird verwendet, um mögliche Abwesenheit eines Wertes sicher zu handhaben. Hier ist ein Beispiel, wie man eine Division sicher durchführen kann:
 
@@ -93,9 +76,9 @@ fn find_divisor(dividend: i32, divisor: i32) -> Option<i32> {
 Eine \texttt{Option} gibt entweder einen wert \texttt{Some} zurück oder einen \texttt{None} Wert.
 Mittels \texttt{match} kann geprüft werden ob ein Wert vorliegt und dementsprechend verarbeitet werden.
 
-\subsection{Filter-Funktion}
+\section{Filter-Funktion}
 
-Die \texttt{filter} Methode ermöglicht es, Elemente eines Iterators basierend auf einer Bedingung zu filtern, ohne zusätzlichen Laufzeitaufwand:
+Die \texttt{filter} Methode ermöglicht es, Elemente eines Iterators basierend auf einer Bedingung zu filtern.
 
 \begin{lstlisting}[language=Rust, caption=Filter-Funktion]
 pub fn filter(){
@@ -111,15 +94,4 @@ pub fn filter(){
 \end{lstlisting}
 Ein Filter auf einem Iterator seperiert zusätzlich die Filter logik.
 An dieser stelle könnte auch eine Methode verwendet werden.
-Dies sorgt für besser lesbaren Code und beugt logik fehlern vor (off by one etc.).
-\section{Vergleich mit anderen Programmiersprachen}
-
-In vielen anderen Programmiersprachen, wie zum Beispiel Python oder Java, führen hohe Abstraktionen häufig zu einem gewissen Maß an Laufzeitkosten. 
-Diese können in Form von zusätzlichen Funktionsaufrufen, Garbage Collection oder Speicherallokationen auftreten. 
-Rust eliminiert diese Kosten, indem es die Abstraktionen zur Kompilierzeit auflöst und so effizienten Maschinencode generiert.
-
-\section{Sicherheitsvorteile der Zero-Cost-Abstraktionen}
-
-Die Verwendung von Zero-Cost-Abstraktionen in Rust trägt zur Sicherheit des Codes bei.
-Vorimplementierte abstraktionen sind gut getested, machen den Code lesbarer, abstrahieren z.B. die iteration und verhindern so \textit{{\gls{off-by-one}}} Fehler.
-
+Dies sorgt für besser lesbaren Code und beugt logik fehlern vor (\textit{\gls{off-by-one}} etc.).
